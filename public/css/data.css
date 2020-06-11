@@ -1,0 +1,88 @@
+/* Define var for root element  */
+:root {
+    --main-bg-color: #F2C94C;
+    --main-text-color: #000;
+    --secondary-text-color: #828282;
+    --link-color: #2F80ED;
+    --font-family: 'Montserrat', sans-serif;
+}
+
+.table-row {
+    /* font-size: 18px; */
+    text-decoration: none;
+}
+
+.table-row:hover {
+    background-color: lightgray;
+    color: var(--main-text-color);
+    font-weight: bold;
+    /* font-size: 20px; */
+    cursor: pointer;
+}
+
+.nav-tabs {
+    font-size: large;
+    border-bottom: 1px solid var(--main-bg-color);
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--main-bg-color);
+    padding: 0.5rem 2rem;
+    font-weight: bold;
+    background-color: #fff;
+    border-color: var(--main-bg-color) var(--main-bg-color) #ffffff;
+}
+
+.nav-tabs .nav-link:focus .nav-tabs .nav-link:hover {
+    border-color: var(--main-bg-color) var(--main-bg-color) var(--main-bg-color);
+}
+
+.state-link {
+    color: var(--main-text-color);
+}
+
+.state-link:hover {
+    color: var(--secondary-text-color);
+}
+
+.table.rounded{
+    border-radius: 1rem!important;
+    border: 5px solid transparent;
+    border-collapse: unset;
+}
+
+
+.freeze-col {
+    position:sticky;
+    left:0px;
+}
+
+.border-3 {
+    border: 3px solid;
+    border-radius: 1rem;
+}
+
+.border-tb-2 {
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+}
+
+.add_file_btn {
+    position: fixed; 
+    bottom:2rem;
+    right:4rem;
+    z-index:10;
+}
+
+.add_icon {
+    font-size: xx-large;
+    font-weight: 900;
+    padding: 0.25rem 0;  
+     
+}
+
+@media screen and (max-width: 1200px) {
+    .freeze-col {
+        background-color: #e9ecef;
+    }
+}

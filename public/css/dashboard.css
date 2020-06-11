@@ -1,0 +1,148 @@
+/* The side nav fixed */
+.sidenav {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    background-color: white;
+    overflow-x: hidden;
+}
+
+/* Reset button */
+.reset {
+    float: right;
+    font-size: 13px;
+    font-weight: lighter;
+    margin: 5px 0;
+}
+
+/* The filter-wrapper */
+.filter-wrapper {
+    display: block;
+    position: sticky;
+    padding-left: 35px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+  
+  /* Hide the browser's default checkbox */
+.filter-wrapper input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+  
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: auto;
+    bottom: auto;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    border: 1px solid #eee;
+    background-color: rgb(235, 235, 235);
+}
+  
+/* On mouse-over, add a grey background color */
+.filter-wrapper:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+  
+/* When the checkbox is checked, add a blue background */
+.filter-wrapper input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+  
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+  
+/* Show the checkmark when checked */
+.filter-wrapper input:checked ~ .checkmark:after {
+    display: block;
+}
+  
+/* Style the checkmark/indicator */
+.filter-wrapper .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* style for section-header title */
+.section-header {
+    background-color: lightgray;
+    text-align: center;
+    font-size: 25px;
+    color: white;
+    height: 45px;
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 12px;
+}
+
+/* Style for number of cases */
+.cases-border {
+    margin: 15px 0 0 15px;
+    border: 1.5px solid lightgray;
+    border-radius: 12px;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* style for piechart-gender-ratio */
+.pie-border {
+    height: 165px;
+    margin-top : 15px;
+    border: 1.5px solid lightgray;
+    border-radius: 12px;
+    padding: 0 20px;
+}
+
+.map-border {
+    display: inline-block;
+    width: 100%;
+    height: 96%;
+    margin-top: 15px;
+    border: 1.5px solid lightgray;
+    border-radius: 12px;
+    padding: 0 20px;
+}
+
+.cases-border p {
+    font-size: 12px;
+}
+
+.cases-border h6 {
+    font-size: 26px;
+}
+
+
+/* media queries */
+/* @media screen and (max-width: 400px) {
+    .sidenav {
+        width: 60%;
+    }
+
+    .overview {
+        display: block;
+        width: 60%;
+    }
+} */

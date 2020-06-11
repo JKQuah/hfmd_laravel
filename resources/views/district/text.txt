@@ -1,0 +1,13 @@
+@foreach($datalist as $data)
+<tr class="text-center">
+    <th scope="row">{{ $data['id'] }}</th>
+    <td>{{ $data['gender'] }}</td>
+    <td>{{ $data['year'] }}</td>
+    <td>{{ $data['month'] }}</td>
+    <td>{{ $data['day'] }}</td>
+    <td>{{ $data['notificationDate'] }}</td>
+    <td>{{ $data['onsetDate'] }}</td>
+    <td>{{ $data['day_diff'] }}</td>
+    <td>{{ $data['status'] }}</td>
+</tr>
+@endforeach
