@@ -17,9 +17,11 @@
     color: var(--secondary-text-color);
 }
 
+
+
 .login-header {
-    background-color: white;
-    padding: 4.75rem 1.25rem 0.75rem;
+    
+    padding: 2.75rem 1.25rem 0.75rem;
     color: var(--main-text-color);
     text-align: center;
     font-size: 32px;
@@ -66,4 +68,15 @@ input[type=checkbox]:after {
     background-color: purple;
     display: inline-block;
     visibility: visible;
-  }
+}
+
+@media screen and (max-width:767px){
+    .login-img {
+        position: absolute;
+        left: 0;
+        opacity: 0.08;
+        height: 480px;
+        padding: 10px 0;
+        margin: 0 auto;
+    }
+}

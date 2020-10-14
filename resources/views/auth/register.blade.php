@@ -1,6 +1,7 @@
 @extends('layouts.app')
 <link rel="stylesheet" type="text/css" href="/css/login.css">
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-xl-5 col-lg-6 col-md-8 col-12">
@@ -10,12 +11,26 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-                        
                         <div class="form-group row">
-                            <label for="fname" class="col-md-6 col-form-label text-md-left">{{ __('First Name') }}</label>
-                            <label for="lname" class="col-md-6 col-form-label text-md-left">{{ __('Last Name') }}</label>
+                            <label for="title" class="col-md-12 col-form-label text-md-left">{{ __('Title') }}</label>
 
+                            <div class="col-4">
+                                <select name="title" id="new-user-title" class="form-control @error('title') is-invalid @enderror" name="title" required>
+                                    <option value="Mr." selected>Mr.</option>
+                                    <option value="Ms.">Ms.</option>
+                                    <option value="Dr.">Dr.</option>
+                                    <option value="Prof.">Prof.</option>
+                                </select>
+                                @error('title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <div class="col-md-6">
+                                <label for="fname" class="col-form-label text-md-left">{{ __('First Name') }}</label>
                                 <input id="fname" type="text" class="form-control @error('fname') is-invalid @enderror" name="fname" value="{{ old('fname') }}" autocomplete="fname" autofocus>
                                 @error('fname')
                                     <span class="invalid-feedback" role="alert">
@@ -24,6 +39,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-6">
+                                <label for="lname" class="col-form-label text-md-left">{{ __('Last Name') }}</label>
                                 <input id="lname" type="text" class="form-control @error('lname') is-invalid @enderror" name="lname" value="{{ old('lname') }}" autocomplete="lname">
 
                                 @error('lname')
@@ -55,9 +71,9 @@
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text">+60</div>
+                                        <div class="input-group-text">+6</div>
                                     </div>
-                                    <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" placeholder="12-555 8686" required autocomplete="phone">
+                                    <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" placeholder="012-555 8686" required autocomplete="phone">
 
                                     @error('phone')
                                         <span class="invalid-feedback" role="alert">

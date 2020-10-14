@@ -1,148 +1,154 @@
-/* The side nav fixed */
-.sidenav {
-    height: 100%;
-    width: 100%;
-    position: relative;
-    z-index: 1;
-    background-color: white;
-    overflow-x: hidden;
+/* Define var for root element  */
+:root {
+    --main-bg-color: #F2C94C;
+    --secondary-bg-color: #F9F9F9;
+    --main-text-color: #000;
+    --secondary-text-color: #828282;
+    --link-color: #2F80ED;
+    --font-family: 'Montserrat', sans-serif;
+    --infected: #6FCF97;
+    --death: #EB5757;
 }
 
-/* Reset button */
-.reset {
+
+.title {
+    background-color: var(--main-bg-color);
+    text-align: center;
+    width: 100%;
+    height: 3.5rem;
+}
+
+.title h2 {
+    padding: 0;
+    margin: 0;
+}
+
+.case-box {
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: var(--secondary-bg-color);
+    border-radius: 12px;
+    text-align: center;
+    
+}
+
+.case-box .subtitle {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+
+.case-box .total-case .title-case, .case-box .infected-case .title-case, .case-box .death-case .title-case {
+    font-weight: 800;
+    font-size: x-large;
+}
+
+.case-box .total-case .subtitle-case, .case-box .infected-case .subtitle-case, .case-box .death-case .subtitle-case{
+    font-size: small;
+}
+
+.case-box .total-case {
+    color: var(--main-bg-color);
+}
+
+.case-box .infected-case {
+    color: var(--infected);
+}
+
+.case-box .death-case {
+    color: var(--death);
+}
+
+.vertical-center {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.case-box .subtitle .more_vert{
     float: right;
-    font-size: 13px;
-    font-weight: lighter;
-    margin: 5px 0;
+    color: var(--secondary-text-color);
+    cursor: pointer;
+    font-size: 20px;
+    margin-right: 10px;
 }
 
-/* The filter-wrapper */
-.filter-wrapper {
-    display: block;
-    position: sticky;
-    padding-left: 35px;
-    margin-bottom: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-  
-  /* Hide the browser's default checkbox */
-.filter-wrapper input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-  
-/* Create a custom checkbox */
-.checkmark {
-    position: absolute;
-    top: auto;
-    bottom: auto;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    border: 1px solid #eee;
-    background-color: rgb(235, 235, 235);
-}
-  
-/* On mouse-over, add a grey background color */
-.filter-wrapper:hover input ~ .checkmark {
-    background-color: #ccc;
-}
-  
-/* When the checkbox is checked, add a blue background */
-.filter-wrapper input:checked ~ .checkmark {
-    background-color: #2196F3;
-}
-  
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-    content: "";
-    position: absolute;
+.case-box .subtitle .more_option {
     display: none;
+    position: absolute;
+    right: 16px;
+    top: 50px;
+    padding: 3px;
+    text-align: left;
+    background: white;
+    border: 1px solid var(--secondary-text-color);
 }
-  
-/* Show the checkmark when checked */
-.filter-wrapper input:checked ~ .checkmark:after {
+
+.more_vert:hover ~ .more_option {
     display: block;
 }
-  
-/* Style the checkmark/indicator */
-.filter-wrapper .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
+
+.case-box .subtitle .more_option:hover {
+    display: block;
 }
 
-/* style for section-header title */
-.section-header {
-    background-color: lightgray;
-    text-align: center;
-    font-size: 25px;
-    color: white;
-    height: 45px;
-    width: 100%;
-    margin-top: 15px;
-    border-radius: 12px;
+/* Ajax loading */
+.swiper-container {
+    height: 438px;
 }
 
-/* Style for number of cases */
-.cases-border {
-    margin: 15px 0 0 15px;
-    border: 1.5px solid lightgray;
-    border-radius: 12px;
-    text-align: center;
-    padding: 10px 0;
+.spinner {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 45%;
 }
 
-/* style for piechart-gender-ratio */
-.pie-border {
-    height: 165px;
-    margin-top : 15px;
-    border: 1.5px solid lightgray;
-    border-radius: 12px;
-    padding: 0 20px;
-}
+.spinner>div {
+    width: 18px;
+    height: 18px;
+    background-color: #333;
 
-.map-border {
+    border-radius: 100%;
     display: inline-block;
-    width: 100%;
-    height: 96%;
-    margin-top: 15px;
-    border: 1.5px solid lightgray;
-    border-radius: 12px;
-    padding: 0 20px;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
 
-.cases-border p {
-    font-size: 12px;
+.spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
 }
 
-.cases-border h6 {
-    font-size: 26px;
+.spinner .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
 }
 
+@-webkit-keyframes sk-bouncedelay {
 
-/* media queries */
-/* @media screen and (max-width: 400px) {
-    .sidenav {
-        width: 60%;
+    0%,
+    80%,
+    100% {
+        -webkit-transform: scale(0)
     }
 
-    .overview {
-        display: block;
-        width: 60%;
+    40% {
+        -webkit-transform: scale(1.0)
     }
-} */
+}
+
+@keyframes sk-bouncedelay {
+
+    0%,
+    80%,
+    100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    40% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+    }
+}

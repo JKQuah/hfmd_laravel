@@ -7,64 +7,14 @@
 <!-- Styles -->
 <link rel="stylesheet" type="text/css" href="/css/data.css">
 <div class="wrapper">
-    <!-- Upload data file button -->
-    <button type="button" class="btn btn-warning rounded-circle btn-lg add_file_btn" data-toggle="modal" data-target="#exampleModalCenter"><span class="material-icons add_icon">add</span></button>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Upload Data Excel File</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Please make sure the column name <strong>must</strong> be exactly the same as the given example</p>
-                        <table class="table table-bordered table-sm table-responsive-lg">
-                            <thead>
-                            <tr>
-                                <th>case_id</th>
-                                <th>states</th>
-                                <th>district</th>
-                                <th>gender</th>
-                                <th>birthday</th>
-                                <th>notification_date</th>
-                                <th>onset_date</th>
-                                <th>status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>3867</td>
-                                <td>Johor</td>
-                                <td>Johor Bharu</td>
-                                <td>Male</td>
-                                <td>2016-05-20</td>
-                                <td>2017-12-17</td>
-                                <td>2017-12-18</td>
-                                <td>infected</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="dataFileUpload" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-                            <label class="custom-file-label" for="dataFileUpload">Choose file..</label>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-warning">Upload</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    {{--@include('common.upload-button')--}}
+    
     <!-- wrapper class -->
     <div class="row">
         <div class="col-sm-0 col-md-0 col-xl-1"></div>
         <div class="col-sm-12 col-md-12 col-xl-10">
             <!-- Content -->
-            <nav>
+            <nav class="data-year-nav">
                 <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
                 @foreach($years as $year)
                     <a class="nav-item nav-link" id="year-{{$year->year}}-tab" data-toggle="tab" href="#year-{{$year->year}}" role="tab" aria-controls="year-{{$year->year}}" aria-selected="true">{{$year->year}}</a>
@@ -72,6 +22,7 @@
                 </div>
             </nav>
             <br>
+      
             <div class="tab-content" id="nav-tabContent">
             @foreach($datalist as $singleYear)
                 <div class="tab-pane fade" id="year-{{ $singleYear['year'] }}" role="tabpanel" aria-labelledby="year-{{ $singleYear['year'] }}-tab">
@@ -118,13 +69,13 @@
                         <div class="col-sm-12 col-md-6 col-xl-6 border-top">
                             <div class="card mb-3 border-0">
                                 <div class="card-body">
-                                <h5 class="card-title text-center">Highest Total Cases</h5>
-                                <div class="col text-center">
-                                    <h1 class="card-text">{{ number_format($singleYear['maxvalue']) }}</h1>
-                                    <p class="card-text"><a class="state-link" href="{{ route('data.show', ['year'=>$singleYear['year'], 'state'=>$singleYear['maxkey']]) }}">{{ $singleYear['maxkey'] }}</a></p>
+                                    <h5 class="card-title text-center">Highest Total Cases</h5>
+                                    <div class="col text-center">
+                                        <h1 class="card-text">{{ number_format($singleYear['maxvalue']) }}</h1>
+                                        <p class="card-text"><a class="state-link" href="{{ route('data.show', ['year'=>$singleYear['year'], 'state'=>$singleYear['maxkey']]) }}">{{ $singleYear['maxkey'] }}</a></p>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>    
+                            </div>    
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-6 border-top">
                             <div class="card mb-3 border-0">
@@ -143,7 +94,7 @@
                     <div class="jumbotron">
                         <div class="row">
                             <div class="col-sm-0 col-md-1 col-xl-1"></div>
-                                <div class="col-sm-12 col-md-10 col-xl-10">
+                                <div class="col-sm-12 col-md-10 col-xl-10 data-table">
                                     <table class="table table-sm table-responsive-lg">
                                         <h4 class="text-center">State Distribution across Month</h4>
                                         <thead>
@@ -155,8 +106,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($singleYear['data'] as $states)
-                                            @foreach($states as $state => $values)
+                                        
+                                        @foreach($singleYear['data'] as $state => $values)
                                                 <tr class="table-row" >
                                                     <th scope="row" class="freeze-col">
                                                         <a class="state-link" href="{{ route('data.show', ['year'=>$singleYear['year'], 'state'=>$state]) }}">{{ $state }}</a>
@@ -165,7 +116,6 @@
                                                         <td class="text-center">{{ $value }}</td>
                                                     @endforeach
                                                 </tr>
-                                            @endforeach
                                         @endforeach
                                         </tbody>
                                     </table>
@@ -180,6 +130,24 @@
         <div class="col-sm-0 col-md-0 col-xl-1"></div>
     </div>
 </div>
+@endsection()
+
+@section('footer')
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css"> -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready( function () {
+        $('.table').DataTable({
+            responsive: true,
+            paging: false,
+            info: false,
+            "language": {
+                search: ' ',
+                searchPlaceholder: 'Search states'
+            }
+        });
+    } );
+</script>
 
 <script>
     var months = document.getElementsByClassName('month');
@@ -226,10 +194,10 @@
             break;
         }
     }
-    document.getElementById("year-2013-tab").classList.add("active");
-    document.getElementById("year-2013").classList.add("active");
-    document.getElementById("year-2013-tab").classList.add("show");
-    document.getElementById("year-2013").classList.add("show");
+    document.getElementById("year-2009-tab").classList.add("active");
+    document.getElementById("year-2009").classList.add("active");
+    document.getElementById("year-2009-tab").classList.add("show");
+    document.getElementById("year-2009").classList.add("show");
 
 </script>
 @endsection()

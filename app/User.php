@@ -8,8 +8,13 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
 
+    protected $table = 'users';
+
+    use Notifiable;
+    const ROLE_ADMIN = "admin", ROLE_STAFF = "staff", ROLE_PUBLIC = "public";
+    const STATUS_ACTIVE = "active";
+     
     /**
      * The attributes that are mass assignable.
      *
@@ -36,4 +41,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function adminlte_image()
+    {
+        return 'https://thepointdenver.com/wp-content/uploads/2017/10/acupuncture-is-trusted-by-doctors-icon.png';
+    }
+
+    public function adminlte_desc()
+    {
+        return 'That\'s a nice guy';
+    }
+
+    public function adminlte_profile_url()
+    {
+        return 'profile/username';
+    }
 }

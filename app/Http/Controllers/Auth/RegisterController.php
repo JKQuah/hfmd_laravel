@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -29,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -66,8 +68,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // return $data;
         return User::create([
+            'title' => $data['title'],
             'fname' => $data['fname'],
             'lname' => $data['lname'],
             'email' => $data['email'],
@@ -76,5 +78,17 @@ class RegisterController extends Controller
             'role' => 'public',
             'status' => 'pending',
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        // $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath())->with('success', 'You had been successfully registered. Please wait for approval.');
     }
 }

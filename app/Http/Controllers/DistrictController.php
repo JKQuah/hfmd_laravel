@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Data;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class DistrictController extends Controller
 {
     public function show($this_year, $this_state, $district){
         $years = Data::select(DB::raw('YEAR(notificationDate) as year'))->distinct()->orderBy('year')->get();
+        
         $district_list = Data::select('district')
                         ->where('state', '=', $this_state)
                         ->groupBy('district')
@@ -126,7 +127,7 @@ class DistrictController extends Controller
                             ->where('status', '=', 'death')
                             ->get()->count();
                             
-        $this_district = array(
+        $this_district_details = array(
             'infected' => $data_infected,
             'deaths' => $data_deaths,
             'i_male' => $data_infected_male,
@@ -142,7 +143,7 @@ class DistrictController extends Controller
             'state' => $this_state,
             'district_list' => $district_list,
             'district' => $district,
-            'single_district' => $this_district,
+            'single_district' => $this_district_details,
             'datalist' => $datalist,
             'data_district_year' => $data_district_year,
         ]);

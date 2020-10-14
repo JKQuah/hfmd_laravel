@@ -18,7 +18,7 @@ html, body {
 }
 
 main {
-    overflow: auto;
+    overflow: hidden;
     padding-bottom: 50px;
 }
 
@@ -65,7 +65,8 @@ main {
 }
 
 .wrapper {
-    padding: 20px 80px;
+    max-width: 1140px;
+    margin: 0 auto;
 }
 
 .footer {
@@ -83,13 +84,13 @@ main {
     clear: both;
 }
 
-.active{
+/* .active{
     border-bottom: 6px solid var(--main-bg-color);
 }
 
 .active:hover {
     border-bottom: none;
-}
+} */
 
 .active .nav-link {
     font-weight: bold;
@@ -98,7 +99,7 @@ main {
 
 .nav-link:hover {
     color: var(--main-bg-color);
-    border-bottom: 6px solid var(--main-bg-color);
+    /* border-bottom: 6px solid var(--main-bg-color); */
 }
 
 .navbar-brand {

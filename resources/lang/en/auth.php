@@ -14,6 +14,7 @@ return [
     */
 
     'failed' => 'Your email or password is incorrect. Please try again.',
+    'failed_status' => 'Your account is inactive yet. Stay tuned and check your email inbox',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];
