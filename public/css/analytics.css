@@ -1,0 +1,59 @@
+/* Define var for root element  */
+:root {
+    --main-bg-color: #F2C94C;
+    --secondary-bg-color: #F9F9F9;
+    --main-text-color: #000;
+    --secondary-text-color: #828282;
+    --link-color: #2F80ED;
+    --font-family: 'Montserrat', sans-serif;
+    --infected: #6FCF97;
+    --death: #EB5757;
+}
+
+.analytics-wrapper{
+    margin: 6rem 3rem 0;
+}
+
+/* Filter column */
+.filter .btn-link {
+    color: var(--primary-text);
+}
+
+.filter .btn-link:hover {
+    text-decoration: none;
+}
+
+.filter .card-header {
+    background-color: transparent;
+}
+
+.filter .card {
+    border: none;
+}
+
+.filter .card-footer {
+    background-color: transparent;
+}
+
+.tooltip-inner {
+    background-color: var(--primary-bg-color);
+}
+
+.bs-tooltip-auto[x-placement^=bottom] .arrow::before,
+.bs-tooltip-bottom .arrow::before {
+    border-bottom-color: var(--primary-bg-color);
+}
+
+@media screen and (max-width: 768px){
+    .filter-options {
+        display: none;
+    }
+}
+
+button[aria-expanded=true] .fa-plus {
+    display: none;
+}
+
+button[aria-expanded=false] .fa-minus {
+    display: none;
+}

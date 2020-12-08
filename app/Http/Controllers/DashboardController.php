@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Data;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -75,11 +76,18 @@ class DashboardController extends Controller
             $total[] += $total_infected_per_year + $total_deaths_per_year;
             $years_exist[] += $year->year;
         }
+        $role = Auth::user()->role;
+        if ($role == 'public') {
+            $download = false;
+        } else {
+            $download = true;
+        }
         return response()->json([
             'years'=> $years_exist,
             'total' => $total,
             'infected' => $infected,
             'death' => $death,
+            'download' => $download
         ]);
     }
 
@@ -89,12 +97,9 @@ class DashboardController extends Controller
         $children_below_1 = [];
         $children_below_2 = [];
         $children_below_3 = [];
+        $children_below_4 = [];
 
-        $data = Data::get()->filter(function($item) {
-                                    $diff = abs(strtotime($item['notificationDate']) - strtotime($item['birthday']));
-                                    $age = floor($diff / (365*60*60*24));
-                                    return  $age <= 2;
-                                });
+        $data = Data::get();
         foreach ($years as $year) {
             $children_age_1 = $data->filter(function($item) use ($year) {
                                     return intval(date('Y', strtotime($item['notificationDate']))) == $year->year;
@@ -117,9 +122,18 @@ class DashboardController extends Controller
                                     $age = floor($diff / (365*60*60*24));
                                     return  $age > 1 && $age <= 2;
                                 })->count();
+            $children_age_4 = $data->filter(function($item) use ($year) {
+                                    return intval(date('Y', strtotime($item['notificationDate']))) == $year->year;
+                                })->filter(function($item) {
+                                    $diff = abs(strtotime($item['notificationDate']) - strtotime($item['birthday']));
+                                    $age = floor($diff / (365*60*60*24));
+                                    return  $age > 2;
+                                })->count();
             $children_below_1[] = $children_age_1;
             $children_below_2[] = $children_age_2;
             $children_below_3[] = $children_age_3;
+            $children_below_4[] = $children_age_4;
+
             $years_exist[] += $year->year;
         }
         return response()->json([
@@ -127,6 +141,7 @@ class DashboardController extends Controller
             'children_below_1' => $children_below_1,
             'children_below_2' => $children_below_2,
             'children_below_3' => $children_below_3,
+            'children_above_3' => $children_below_4,
         ]);
     }
 }

@@ -84,13 +84,13 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="new-admin-email">Email address</label>
-                                <input type="email" class="form-control" id="new-admin-email" placeholder="Enter email" name="email" required>
+                                <input type="email" class="form-control" id="new-admin-email" placeholder="Enter email" name="email">
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="new-admin-phone">Phone number</label>
-                                <input type="text" class="form-control" id="new-admin-phone" placeholder="Phone number (eg. 0162223460)" name="phone" required>
+                                <input type="text" class="form-control" id="new-admin-phone" placeholder="Phone number (eg. 0162223460)" name="phone" pattern="^(\+?6?01)[0-46-9]-*[0-9]{7,8}$" oninvalid="setCustomValidity('The phone format should be 016-xxx4567')" required>
                             </div>
                         </div>
                     </div>
@@ -120,8 +120,20 @@
 @stop
 
 @section('js')
-
 <script>
+    // Prevent letters in input form
+    $(function() {
+        var regExp = /[a-z]/i;
+        $('#new-admin-phone').on('keydown keyup', function(e) {
+            var value = String.fromCharCode(e.which) || e.key;
+
+            // No letters allowed
+            if (regExp.test(value)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    });
 </script>
 
 @if(Session::has('success'))

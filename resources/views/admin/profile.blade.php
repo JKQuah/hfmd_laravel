@@ -47,7 +47,7 @@
                             <div class="col-md-2 col-sm-12">
                                 <div class="form-group">
                                     <label for="admin-title">Title</label>
-                                    <select name="title" id="admin-title" class="form-control">
+                                    <select name="title" id="admin-title" class="form-control" required>
                                         @if(isset($user->title))
                                         <option value="{{ $user->title }}" selected hidden> {{ $user->title }}</option>
                                         @endif
@@ -61,13 +61,13 @@
                             <div class="col-md-5 col-sm-12">
                                 <div class="form-group">
                                     <label for="admin-fname">First Name</label>
-                                    <input type="text" class="form-control" id="admin-fname" placeholder="Enter First Name" value="{{ $user->fname}}">
+                                    <input type="text" class="form-control" id="admin-fname" placeholder="Enter First Name" value="{{ $user->fname}}" required>
                                 </div>
                             </div>
                             <div class="col-md-5 col-sm-12">
                                 <div class="form-group">
                                     <label for="admin-lname">Last Name</label>
-                                    <input type="text" class="form-control" id="admin-lname" placeholder="Enter Last Name" value="{{ $user->lname}}">
+                                    <input type="text" class="form-control" id="admin-lname" placeholder="Enter Last Name" value="{{ $user->lname}}" required>
                                 </div>
                             </div>
                         </div>
@@ -76,13 +76,13 @@
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label for="admin-email">Email address</label>
-                                    <input type="email" class="form-control" id="admin-email" placeholder="Enter email" value="{{ $user->email}}">
+                                    <input type="email" class="form-control" id="admin-email" placeholder="Enter email" value="{{ $user->email}}" required>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label for="admin-phone">Phone number</label>
-                                    <input type="text" class="form-control" id="admin-phone" placeholder="Phone number" value="{{ $user->phone}}">
+                                    <input type="text" class="form-control" id="admin-phone" placeholder="Phone number" value="{{ $user->phone}}" pattern="^(\+?6?01)[0-46-9]-*[0-9]{7,8}$" oninvalid="setCustomValidity('The phone format should be 016-xxx4567')" required>
                                 </div>
                             </div>
                         </div>
@@ -113,5 +113,19 @@
     function hide_edit_form() {
         $('#profile-edit-form').hide();
     }
+
+    // Prevent letters in input form
+    $(function() {
+        var regExp = /[a-z]/i;
+        $('#admin-phone').on('keydown keyup', function(e) {
+            var value = String.fromCharCode(e.which) || e.key;
+
+            // No letters allowed
+            if (regExp.test(value)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    });
 </script>
 @stop

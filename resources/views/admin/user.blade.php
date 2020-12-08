@@ -20,7 +20,7 @@
                             <table id="users-table" class="table table-bordered table-hover table-responsive-xl">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th id="sort-off"></th>
+                                        <th></th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Email Address</th>
@@ -124,7 +124,7 @@
                             </table>
                             <hr>
                             <div class="float-right">
-                                <button type="button" class="btn btn-primary" onclick="activateAll()">Activate All</button>
+                                <button type="button" class="btn btn-info" onclick="activateAll()">Activate All</button>
                                 <button type="submit" class="btn btn-secondary">Activate Selected</button>
                                 <!-- <button type="button" class="btn btn-dark">Unselect All</button> -->
                             </div>
@@ -182,7 +182,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="new-user-phone">Phone number</label>
-                                <input type="text" class="form-control" id="new-user-phone" placeholder="Phone number (eg. 016-2223460)" name="phone" required>
+                                <input type="text" class="form-control" id="new-user-phone" placeholder="Phone number (eg. 016-2223460)" name="phone" pattern="^(\+?6?01)[0-46-9]-*[0-9]{7,8}$" oninvalid="setCustomValidity('The phone format should be 016-xxx4567')" required>
                             </div>
                         </div>
                     </div>
@@ -216,13 +216,10 @@
 <script>
     $(document).ready(function() {
         $('#users-table').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": true,
-            "responsive": true,
+            "columnDefs": [{
+                "targets": [0, 7, 8],
+                "orderable": false
+            }]
         });
     });
 
@@ -309,6 +306,20 @@
             }
         })
     }
+
+    // Prevent letters in input form
+    $(function() {
+        var regExp = /[a-z]/i;
+        $('#new-user-phone').on('keydown keyup', function(e) {
+            var value = String.fromCharCode(e.which) || e.key;
+
+            // No letters allowed
+            if (regExp.test(value)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    });
 </script>
 
 @if(Session::has('success'))

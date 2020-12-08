@@ -7,7 +7,7 @@
     --font-family: 'Montserrat', sans-serif;
 }
 
-
+/* General */
 html, body {
     background-color: #fff;
     color: #636b6f;
@@ -15,6 +15,7 @@ html, body {
     font-weight: 200;
     height: 100vh;
     margin: 0;
+    scroll-behavior: smooth;
 }
 
 main {
@@ -48,6 +49,7 @@ main {
 
 .title {
     font-size: 84px;
+    padding-bottom: 3rem;
 }
 
 .links > a {
@@ -66,32 +68,21 @@ main {
 
 .wrapper {
     max-width: 1140px;
-    margin: 0 auto;
+    margin: 10rem auto 0;
+
 }
 
-.footer {
-    position: relative;
-    bottom: 0;
-    z-index: 2;
-    background-color: var(--main-bg-color);
-    color: black;
-    padding: 30px 0;
-    width: 100%;
-    height: auto;
-    text-align: center;
-    font-size: 15px;
-    font-family: var(--font-family);
-    clear: both;
+.max-width-1140 {
+    max-width: 1140px;
 }
 
-/* .active{
-    border-bottom: 6px solid var(--main-bg-color);
+.vertical-center {
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
 
-.active:hover {
-    border-bottom: none;
-} */
-
+/* Nav link */
 .active .nav-link {
     font-weight: bold;
     color: var(--main-bg-color);
@@ -119,9 +110,101 @@ main {
     box-shadow: 0px 0px 5px 5px rgba(0,0,0,.2);
 }
 
+.nav-item .dropdown-menu .far {
+    margin: 5px 0;
+}
+
+.nav-item .dropdown-menu .dropdown-item{
+    cursor: pointer;
+}
+
  /* media queries  */
-@media screen and (max-width: 576px) {
+/* @media screen and (max-width: 576px) {
     .wrapper {
         padding: 20px 40px;
     }
+} */
+
+/* footer */
+.footer {
+    position: relative;
+    bottom: 0;
+    z-index: 2;
+    background-color: var(--main-bg-color);
+    color: black;
+    padding: 30px 0;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-size: 15px;
+    font-family: var(--font-family);
+    clear: both;
 }
+
+.footer .footer-state-wrapper{
+    padding: 2rem 5rem;
+}
+
+.footer .footer-state-wrapper h6{
+    margin-bottom: 1rem;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.footer .footer-state-wrapper ul{
+    list-style: none;
+    padding-left: 0;
+}
+
+.footer .footer-state-wrapper ul li{
+    padding-top: 1rem;
+    text-align: center;
+}
+
+.footer .footer-state-wrapper ul li a{
+    text-decoration: none;
+    color: #000000;   
+}
+
+/* Share dashboard */
+.social-media-wrapper .social-media-img img {
+    height: 100px;
+    width: 100px;
+}
+
+.social-media-wrapper .social-media-img img:hover{
+    transform: scale(1.15);
+}
+
+.social-media-wrapper p {
+    margin-top: 5px;
+    text-align: center;
+}
+
+.share-dashboard-message {
+    font-size: 13px;
+    text-align: justify;
+    color: var(--secondary-text-color);
+    margin: 0;
+    padding: 10px;
+}
+
+.share-wrapper a {
+    cursor: pointer;
+}
+
+/* customize checkbox */
+/* input[type="checkbox"]:checked+label:before{
+    background-color: var(--secondary-text-color);
+    border: 1px solid var(--secondary-text-color);
+}
+
+input[type="checkbox"]+label:before{
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    background-clip: content-box;
+    border-radius: 50%;
+} */

@@ -1,12 +1,20 @@
 @extends('layouts.app')
 <link rel="stylesheet" type="text/css" href="/css/login.css">
 @section('swal')
-@if(Session::has('success'))
+@error('email')
 <script>
-    Swal.fire('Success', '{{ Session::get("success") }}', 'success');
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '{{ $message }}',
+        showCloseButton: true,
+        showConfirmButton: false,
+        showCancelButton: false,
+    })
 </script>
-@endif
+@enderror
 @endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -31,8 +39,10 @@
                                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                         </div>
                                         @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                        <span class="invalid-feedback d-block" role="alert">
+                                            <strong>
+                                                <p>{{ $message }}</p>
+                                            </strong>
                                         </span>
                                         @enderror
                                     </div>
@@ -46,7 +56,10 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text"><i class="fas fa-lock"></i></div>
                                             </div>
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror border-right-0" name="password" required autocomplete="current-password">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text border-left-0 bg-white"><i id="psw-show" class="fas fa-eye" onclick="showPsw()"></i></div>
+                                            </div>
                                         </div>
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -90,3 +103,30 @@
 </div>
 
 @endsection
+
+@section('js')
+<script>
+    function showPsw() {
+        var password = document.getElementById("password");
+        var eye = document.getElementById('psw-show');
+        if (password.type === "password") {
+            password.type = "text";
+            eye.classList.remove('fa-eye');
+            eye.classList.add('fa-eye-slash');
+        } else {
+            password.type = "password";
+            eye.classList.add('fa-eye');
+            eye.classList.remove('fa-eye-slash');
+        }
+    }
+</script>
+@endsection
+@if(session()->has('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Registered successfully',
+        text: '{{ session()->get("success") }}',
+    })
+</script>
+@endif

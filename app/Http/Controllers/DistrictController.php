@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Data;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\District\DistrictDataTraits;
+use App\Http\Controllers\District\DistrictChartTraits;
 
 class DistrictController extends Controller
 {
-    public function show($this_year, $this_state, $district){
+    use DistrictDataTraits;
+    use DistrictChartTraits;
+
+    public function index($this_year, $this_state, $district){
         $years = Data::select(DB::raw('YEAR(notificationDate) as year'))->distinct()->orderBy('year')->get();
         
         $district_list = Data::select('district')
@@ -16,43 +21,7 @@ class DistrictController extends Controller
                         ->groupBy('district')
                         ->get();
 
-        $data_districts = Data::select('district', 'gender','birthday','notificationDate','onsetDate', 'status')
-                        ->where('district', '=', $district)
-                        ->orderBy('notificationDate')
-                        ->get();
-        $agelist = array();
-        $day_diff = array();
-        foreach ($data_districts as $data) {
-            $birthday = strtotime($data['birthday']);
-            $notificationDate = strtotime($data['notificationDate']);
-            $onsetDate = strtotime($data['onsetDate']);
-            $day_diff[] = array('day_diff'=>abs($onsetDate-$notificationDate)/60/60/24);
-            $diff = abs($notificationDate - $birthday);  
-            $year = floor($diff / (365*60*60*24));  
-            $month = floor(($diff - $year * 365*60*60*24)/ (30*60*60*24));  
-            $day = floor(($diff - $year * 365*60*60*24 - $month*30*60*60*24)/ (60*60*24));
-            $agelist[] = array(
-                'year'=>$year,
-                'month'=>$month,
-                'day'=> $day,
-            );
-        }
-        $i=0;
-        $datalist = array();
-        foreach($data_districts as $data){
-            $datalist[] = array(
-                'id' => $i+1,
-                'gender' => $data['gender'],
-                'year' => $agelist[$i]['year'],
-                'month' => $agelist[$i]['month'],
-                'day' => $agelist[$i]['day'],
-                'notificationDate' => $data['notificationDate'],
-                'onsetDate' => $data['onsetDate'],
-                'day_diff' => $day_diff[$i]['day_diff'], 
-                'status' => $data['status']
-            );
-            $i++;
-        }
+        $datalist = $this->getDistrictData($district);
         $data_district_year = array();
         foreach($years as $year){
             $total_infected_per_year = Data::select('notificationDate')
@@ -136,9 +105,9 @@ class DistrictController extends Controller
             'd_female' => $data_deaths_female,
         );
 
-        // return $district_list;
+        // dd($datalist);
 
-        return view('district.show',[
+        return view('district.index',[
             'year' => $this_year,
             'state' => $this_state,
             'district_list' => $district_list,

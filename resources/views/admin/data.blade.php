@@ -43,8 +43,6 @@
 @stop
 
 @section('css')
-<!-- <link rel="stylesheet" href="/css/admin_custom.css"> -->
-<link href="{{ asset('dist/jqvmap.css') }}" media="screen" rel="stylesheet" type="text/css">
 <style>
     #map tspan{
         font-size: 10px;
@@ -53,7 +51,7 @@
 @stop
 
 @section('js')
-<!-- JQVMap -->
+<!-- Simple Map Trial -->
 <script type="text/javascript" src="{{ asset('js/mapdata.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/countrymap.js') }}"></script>
 

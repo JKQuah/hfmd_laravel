@@ -247,16 +247,22 @@ return [
             'url'  => 'admin/dashboard_setting',
             'icon' => 'fas fa-fw fa-cog',
         ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/change_password',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
         ['header' => 'MANAGE DATA'],
         [
             'text' => 'Data',
             'url'  => 'admin/data',
             'icon' => 'fas fa-fw fa-database',
+        ],
+        [
+            'text' => 'Charts',
+            'url'  => 'admin/charts',
+            'icon' => 'fas fa-fw fa-chart-bar',
+        ],
+        ['header' => 'MANAGE FAQ'],
+        [
+            'text' => 'FAQ',
+            'url'  => 'admin/faq',
+            'icon' => 'fas fa-fw fa-question',
         ],
         ['header' => 'MANAGE USERS'],
         [
@@ -385,6 +391,21 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                ],
+            ],
+        ],
+        'Summernote' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js',
                 ],
             ],
         ],
