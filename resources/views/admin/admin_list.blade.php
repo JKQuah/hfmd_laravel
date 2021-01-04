@@ -97,8 +97,8 @@
                     <div class="form-group row">
                         <div class="col-sm-12">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="email_notification">
-                                <label class="form-check-label" for="email_notification">Notify new adminstrator with the email given above <small>(if checked)</small></label>
+                                <!-- <input type="checkbox" class="form-check-input" id="email_notification">
+                                <label class="form-check-label" for="email_notification">Notify new adminstrator with the email given above <small>(if checked)</small></label> -->
                             </div>
                         </div>
                     </div>
@@ -120,7 +120,11 @@
 @stop
 
 @section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
 <script>
+    $(document).ready(function() {
+        $('.tel').inputmask('019-999 9999[9]');
+    });
     // Prevent letters in input form
     $(function() {
         var regExp = /[a-z]/i;

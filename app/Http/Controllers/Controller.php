@@ -73,4 +73,19 @@ class Controller extends BaseController
 		            "#EFFFCD","#DCE9BE","#555152","#2E2633","#99173C"];
         return $colors;
     }
+
+    public function verifyState($state){
+        $states = $this->getAllStates()->all();
+        return in_array($state, $states);
+    }
+
+    public function verifyDistrict($state, $district){
+        $districts = $this->getAllDistricts($state)->all();
+        return in_array($district, $districts);
+    }
+
+    public function verifyYear($year){
+        $years = $this->getAllYears();
+        return in_array($year, $years);
+    }
 }

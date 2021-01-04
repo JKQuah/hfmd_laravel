@@ -242,22 +242,22 @@ return [
             'url'  => 'admin/profile',
             'icon' => 'fas fa-fw fa-user',
         ],
-        [
-            'text' => 'Dashboard Settings',
-            'url'  => 'admin/dashboard_setting',
-            'icon' => 'fas fa-fw fa-cog',
-        ],
+        // [
+        //     'text' => 'Dashboard Settings',
+        //     'url'  => 'admin/dashboard_setting',
+        //     'icon' => 'fas fa-fw fa-cog',
+        // ],
         ['header' => 'MANAGE DATA'],
         [
             'text' => 'Data',
             'url'  => 'admin/data',
             'icon' => 'fas fa-fw fa-database',
         ],
-        [
-            'text' => 'Charts',
-            'url'  => 'admin/charts',
-            'icon' => 'fas fa-fw fa-chart-bar',
-        ],
+        // [
+        //     'text' => 'Charts',
+        //     'url'  => 'admin/charts',
+        //     'icon' => 'fas fa-fw fa-chart-bar',
+        // ],
         ['header' => 'MANAGE FAQ'],
         [
             'text' => 'FAQ',

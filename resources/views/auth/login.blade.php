@@ -120,7 +120,6 @@
         }
     }
 </script>
-@endsection
 @if(session()->has('success'))
 <script>
     Swal.fire({
@@ -130,3 +129,4 @@
     })
 </script>
 @endif
+@endsection

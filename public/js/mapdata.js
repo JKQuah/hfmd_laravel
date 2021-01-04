@@ -1,23 +1,23 @@
-var simplemaps_countrymap_mapdata={
+var simplemaps_countrymap_mapdata = {
   main_settings: {
     //General settings
-		width: "responsive", // 'responsive'
+    width: "responsive", // 'responsive'
     background_color: "#FFFFFF",
     background_transparent: "yes",
     border_color: "#ffffff",
     pop_ups: "detect",
-    
-		//State defaults
-		state_description: "State description",
+
+    //State defaults
+    state_description: "No data description",
     state_color: "#88A4BC",
     state_hover_color: "#3B729F",
     state_url: "",
     border_size: 1.5,
     all_states_inactive: "no",
     all_states_zoomable: "yes",
-    
-		//Location defaults
-		location_description: "Location description",
+
+    //Location defaults
+    location_description: "Location description",
     location_url: "",
     location_color: "#FF0067",
     location_opacity: 0.8,
@@ -30,17 +30,17 @@ var simplemaps_countrymap_mapdata={
     location_hover_border: 2.5,
     all_locations_inactive: "no",
     all_locations_hidden: "no",
-    
-		//Label defaults
-		label_color: "#d5ddec",
+
+    //Label defaults
+    label_color: "#d5ddec",
     label_hover_color: "#d5ddec",
     label_size: 22,
-    label_font: "Arial",
+    label_font: "Monserrat",
     hide_labels: "no",
     hide_eastern_labels: "no",
-   
-		//Zoom settings
-		zoom: "yes",
+
+    //Zoom settings
+    zoom: "yes",
     manual_zoom: "yes",
     back_image: "no",
     initial_back: "no",
@@ -51,18 +51,18 @@ var simplemaps_countrymap_mapdata={
     zoom_out_incrementally: "yes",
     zoom_percentage: 0.99,
     zoom_time: 0.5,
-    
-		//Popup settings
-		popup_color: "white",
+
+    //Popup settings
+    popup_color: "white",
     popup_opacity: 0.9,
     popup_shadow: 1,
     popup_corners: 5,
     popup_font: "12px/1.5 Verdana, Arial, Helvetica, sans-serif",
     popup_nocss: "no",
-    
-		//Advanced settings
-		div: "map",
-    auto_load: "yes",
+
+    //Advanced settings
+    div: "map",
+    auto_load: "no",
     url_new_tab: "no",
     images_directory: "default",
     fade_time: 0.1,
@@ -71,10 +71,6 @@ var simplemaps_countrymap_mapdata={
   state_specific: {
     MYS1137: {
       name: "Perak",
-      description: "default",
-      color: "default",
-      hover_color: "default",
-      url: "default"
     },
     MYS1139: {
       name: "Pulau Pinang"
@@ -104,7 +100,7 @@ var simplemaps_countrymap_mapdata={
       name: "Selangor"
     },
     MYS1149: {
-      name: "Trengganu"
+      name: "Terengganu"
     },
     MYS1186: {
       name: "Sabah"
@@ -122,11 +118,11 @@ var simplemaps_countrymap_mapdata={
       name: "Labuan"
     }
   },
-  locations: {
-    "0": {
-      lat: "3.166667",
-      lng: "101.7",
-      name: "Kuala Lumpur"
-    }
-  }
+  // locations: {
+  //   "0": {
+  //     lat: "3.166667",
+  //     lng: "101.7",
+  //     name: "Kuala Lumpur"
+  //   }
+  // }
 };

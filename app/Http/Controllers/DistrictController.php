@@ -14,10 +14,21 @@ class DistrictController extends Controller
     use DistrictChartTraits;
 
     public function index($this_year, $this_state, $district){
+        if(!$this->verifyState($this_state)){
+            return redirect()->back()->with("missing", "State doesn\'t not exist in the database");
+        }
+
+        if(!$this->verifyDistrict($this_state, $district)){
+            return redirect()->back()->with("missing", "District doesn\'t not exist in the database");
+        }
+
+        if(!$this->verifyYear($this_year)){
+            return redirect()->back()->with("missing", "Year ".$this_year." doesn\'t not exist in the database.");
+        }
         $years = Data::select(DB::raw('YEAR(notificationDate) as year'))->distinct()->orderBy('year')->get();
         
         $district_list = Data::select('district')
-                        ->where('state', '=', $this_state)
+                        ->where('state', $this_state)
                         ->groupBy('district')
                         ->get();
 

@@ -67,7 +67,7 @@
         </div>
 
         <!-- Charts Summary -->
-        <h3>Charts Summary</h3>
+        <!-- <h3>Charts Summary</h3>
         <div class="row">
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-secondary">
@@ -120,7 +120,7 @@
                     <a href="{{ route('admin.user_list') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- FAQ Summary -->
         <h3>FAQ Summary</h3>

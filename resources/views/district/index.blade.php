@@ -1,7 +1,10 @@
 @extends('layouts.layout')
 
-@section('content')
+@section('css')
 <link rel="stylesheet" type="text/css" href="/css/data.css">
+@endsection
+
+@section('content')
 
 <div class="wrapper">
     <h2 class="text-center">HFMD Cases in <a href="{{ route('data.show', ['year'=>$year, 'state'=>$state]) }}">{{ $state }}</a>, {{ $district }}
@@ -39,11 +42,11 @@
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <h2 class="card-title text-center font-weight-bold">{{ $single_district['i_male'] }}</h2>
-                                <p class="card-text text-center">Male</p>
+                                <p class="card-text text-center">Male ({{ number_format(($single_district['i_male'] * 100 / $single_district['infected']), 1) }}%)</p>
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <h2 class="card-title text-center font-weight-bold">{{ $single_district['i_female'] }}</h2>
-                                <p class="card-text text-center">Female</p>
+                                <p class="card-text text-center">Female ({{ number_format(($single_district['i_female'] * 100 / $single_district['infected']), 1) }}%)</p>
                             </div>
                         </div>
                     </div>
@@ -55,29 +58,21 @@
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <h2 class="card-title text-center font-weight-bold">{{ $single_district['d_male'] }}</h2>
-                                <p class="card-text text-center">Male</p>
+                                @if($single_district['d_male'] == 0)
+                                <p class="card-text text-center">Male (0.0%)</p>
+                                @else
+                                <p class="card-text text-center">Male ({{ number_format(($single_district['d_male'] * 100 / $single_district['deaths']), 1) }}%)</p>
+                                @endif
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <h2 class="card-title text-center font-weight-bold">{{ $single_district['d_female'] }}</h2>
-                                <p class="card-text text-center">Female</p>
+                                @if($single_district['d_female'] == 0)
+                                <p class="card-text text-center">Female (0.0%)</p>
+                                @else
+                                <p class="card-text text-center">Female ({{ number_format(($single_district['d_female'] * 100 / $single_district['deaths']), 1) }}%)</p>
+                                @endif
                             </div>
                         </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-12 border-right border-warning">
-                        <h4>Age Group Distribution</h4>
-                        <p>at {{ $district }} in {{ $year }}</p>
-                        <div id="lineChart_age"></div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h4>Monthly Distribution</h4>
-                        <p>at {{ $district }} in {{ $year }}</p>
-                        <div id="lineChart_month"></div>
                     </div>
                 </div>
             </div>
@@ -127,6 +122,28 @@
             <br>
         </div>
     </div>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>Age Group Distribution</h4>
+                <p>at {{ $district }} in {{ $year }}</p>
+                <div id="lineChart_age"></div>
+                <small class="text-secondary">*Percentage indicated the rate of infected cases</small>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>Monthly Distribution</h4>
+                <p>at {{ $district }} in {{ $year }}</p>
+                <div id="lineChart_month"></div>
+                <small class="text-secondary">*Percentage indicated the rate of infected cases</small>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 @section('js')
@@ -142,44 +159,38 @@
         $.ajax({
             type: 'GET',
             data: {
-                year: "2010",
-                state: "JOHOR",
-                gender: 'male'
+                year: "{{ $year }}",
+                district: "{{ $district }}",
             },
-            url: '{{ route("state.getGenderChart") }}',
+            url: '{{ route("district.getAgeGroupChart") }}',
             beforeSend: function() {},
             success: function(chart) {
                 var options = {
-                    series: [{
-                        name: 'TEAM A',
-                        type: 'column',
-                        data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
-                    }, {
-                        name: 'TEAM B',
-                        type: 'area',
-                        data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
-                    }, {
-                        name: 'TEAM C',
-                        type: 'line',
-                        data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39]
-                    }],
+                    series: chart.data,
                     chart: {
                         height: 350,
                         type: 'line',
                         stacked: false,
                     },
                     stroke: {
-                        width: [0, 2, 5],
-                        curve: 'smooth'
+                        width: [0, 3],
+                        curve: 'smooth',
+                    },
+                    toolbar: {
+                        tools: {
+                            download: chart.download
+                        }
+                    },
+                    legend: {
+                        position: 'top',
                     },
                     plotOptions: {
                         bar: {
                             columnWidth: '50%'
                         }
                     },
-
                     fill: {
-                        opacity: [0.85, 0.25, 1],
+                        opacity: [0.85, 1],
                         gradient: {
                             inverseColors: false,
                             shade: 'light',
@@ -189,20 +200,21 @@
                             stops: [0, 100, 100, 100]
                         }
                     },
-                    labels: ['01/01/2003', '02/01/2003', '03/01/2003', '04/01/2003', '05/01/2003', '06/01/2003', '07/01/2003',
-                        '08/01/2003', '09/01/2003', '10/01/2003', '11/01/2003'
-                    ],
+                    labels: ['Age 0', 'Age 1', 'Age 2', 'Age 3', 'Age 4', 'Age 5', 'Age 6', 'Age 7', 'Age 8', 'Age 9', 'Age 10', 'Age 11', 'Age 12'],
                     markers: {
                         size: 0
                     },
                     xaxis: {
-                        type: 'datetime'
+                        title: {
+                            text: chart.xlabel,
+                        },
                     },
                     yaxis: {
                         title: {
-                            text: 'Points',
+                            text: chart.ylabel,
                         },
-                        min: 0
+                        min: 0,
+                        forceNiceScale: true,
                     },
                     tooltip: {
                         shared: true,
@@ -210,12 +222,28 @@
                         y: {
                             formatter: function(y) {
                                 if (typeof y !== "undefined") {
-                                    return y.toFixed(0) + " points";
+                                    return y.toFixed(0) + " cases";
                                 }
                                 return y;
 
                             }
                         }
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        enabledOnSeries: [0],
+                        formatter: function(val, opts) {
+                            let percent = opts.w.globals.seriesPercent[opts.seriesIndex][opts.dataPointIndex];
+                            return percent.toFixed(1) + "%";
+                        },
+                        offsetY: -10,
+                        style: {
+                            fontSize: '12px',
+                            colors: ["#304758"]
+                        },
+                    },
+                    markers: {
+                        size: 4
                     }
                 };
 
@@ -249,10 +277,15 @@
                         }
                     },
                     stroke: {
-                        width: [0, 5],
+                        width: [0, 3],
                         curve: 'smooth'
                     },
-                    legend : {
+                    toolbar: {
+                        tools: {
+                            download: chart.download
+                        }
+                    },
+                    legend: {
                         position: 'top',
                     },
                     xaxis: {
@@ -265,7 +298,8 @@
                         title: {
                             text: chart.ylabel,
                         },
-                        categories: chart.categories
+                        min: 0,
+                        forceNiceScale: true,
                     },
                     dataLabels: {
                         enabled: true,
@@ -282,7 +316,20 @@
                     },
                     markers: {
                         size: 4
-                    }
+                    },
+                    tooltip: {
+                        shared: true,
+                        intersect: false,
+                        y: {
+                            formatter: function(y) {
+                                if (typeof y !== "undefined") {
+                                    return y.toFixed(0) + " cases";
+                                }
+                                return y;
+
+                            }
+                        }
+                    },
                 };
                 var chart = new ApexCharts(document.getElementById('lineChart_month'), options);
                 chart.render();

@@ -10,6 +10,7 @@
 @endsection
 
 @section('content')
+<div class="wrapper">
 <div class="title vertical-center mt-5">
     <h2 class="p-3 text-center">Frequently Asked Question (FAQ)</h2>
 </div>
@@ -17,7 +18,7 @@
 <div class="faq-container">
     <div class="row mx-3">
         <div class="col-sm-12 col-md-4">
-            <form action="" method="get">
+            <!-- <form action="" method="get">
                 <div class="form-group">
                     <label for="news">Questions</label>
                     <input type="text" class="form-control" id="news" placeholder="search keywords">
@@ -41,7 +42,8 @@
                         <label for="sortLatest">Latest Updated</label>
                     </div>
                 </div>
-            </form>
+            </form> -->
+            <img src="{{ asset('img\faq.svg') }}" class="w-100" alt="data_title_image">
         </div>
         <div class="col-sm-12 col-md-8">
             <div class="accordion faq-wrapper" id="accordionExample">
@@ -84,80 +86,81 @@
             </div>
         </div>
     </div>
-    @endsection
+</div>
+@endsection
 
-    @section('js')
-    <script>
-        function toggleLike(like) {
-            var flag = false;
-            // Fill the like button
-            if ($(like).hasClass('far')) {
-                $(like).removeClass('far');
-                $(like).addClass('fas');
-                flag = true;
-            } else {
-                $(like).removeClass('fas');
-                $(like).addClass('far');
-                flag = false;
-            }
+@section('js')
+<script>
+    function toggleLike(like) {
+        var flag = false;
+        // Fill the like button
+        if ($(like).hasClass('far')) {
+            $(like).removeClass('far');
+            $(like).addClass('fas');
+            flag = true;
+        } else {
+            $(like).removeClass('fas');
+            $(like).addClass('far');
+            flag = false;
+        }
 
-            // Reset the dislike button
-            var sibling = $(like).siblings().last();
-            if (sibling.hasClass('fas')) {
-                sibling.removeClass('fas');
-                sibling.addClass('far');
-            }
+        // Reset the dislike button
+        var sibling = $(like).siblings().last();
+        if (sibling.hasClass('fas')) {
+            sibling.removeClass('fas');
+            sibling.addClass('far');
+        }
 
-            // Submit Ajax to db 
-            $.ajax({
-                type: 'POST',
-                url: '{{ route("faq.toggleLike") }}',
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    id: $(like).attr('id'),
-                    like: flag,
-                },
-                success: function() {
-                    // console.log('success like')
-                },
-            });
+        // Submit Ajax to db 
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("faq.toggleLike") }}',
+            data: {
+                _token: "{{ csrf_token() }}",
+                id: $(like).attr('id'),
+                like: flag,
+            },
+            success: function() {
+                // console.log('success like')
+            },
+        });
+
+    }
+
+    function toggleDislike(dislike) {
+        var flag = false;
+        // Fill the dislike button
+        if ($(dislike).hasClass('far')) {
+            $(dislike).removeClass('far');
+            $(dislike).addClass('fas');
+            flag = true;
+        } else {
+            $(dislike).removeClass('fas');
+            $(dislike).addClass('far');
+            flag = false;
+        }
+
+        // Reset the like button
+        var sibling = $(dislike).siblings().last();
+        if (sibling.hasClass('fas')) {
+            sibling.removeClass('fas');
+            sibling.addClass('far');
 
         }
 
-        function toggleDislike(dislike) {
-            var flag = false;
-            // Fill the dislike button
-            if ($(dislike).hasClass('far')) {
-                $(dislike).removeClass('far');
-                $(dislike).addClass('fas');
-                flag = true;
-            } else {
-                $(dislike).removeClass('fas');
-                $(dislike).addClass('far');
-                flag = false;
-            }
-
-            // Reset the like button
-            var sibling = $(dislike).siblings().last();
-            if (sibling.hasClass('fas')) {
-                sibling.removeClass('fas');
-                sibling.addClass('far');
-
-            }
-
-            // Submit Ajax to db
-            $.ajax({
-                type: 'POST',
-                url: '{{ route("faq.toggleDislike") }}',
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    id: $(dislike).attr('id'),
-                    dislike: flag,
-                },
-                success: function() {
-                    // console.log('success dislike')
-                },
-            });
-        }
-    </script>
-    @endsection
+        // Submit Ajax to db
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("faq.toggleDislike") }}',
+            data: {
+                _token: "{{ csrf_token() }}",
+                id: $(dislike).attr('id'),
+                dislike: flag,
+            },
+            success: function() {
+                // console.log('success dislike')
+            },
+        });
+    }
+</script>
+@endsection

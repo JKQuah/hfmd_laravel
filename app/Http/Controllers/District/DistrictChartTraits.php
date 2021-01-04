@@ -6,13 +6,14 @@ use App\ApexChart;
 use App\Data;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * 
  */
 trait DistrictChartTraits
 {
-    // Default Bar
+    // Default: bar(infected) and line(death)
     public function getMonthlyChart(Request $request)
     {
         $district = $request->district;
@@ -65,6 +66,13 @@ trait DistrictChartTraits
             $monthly_cases['data'][] = $monthly_case;
         }
 
+        // Customize chart
+        $role = Auth::user()->role;
+        if ($role == 'public') {
+            $monthly_cases['download'] = false;
+        } else {
+            $monthly_cases['download'] = true;
+        }
         $monthly_cases['categories'] = $all_months;
         $monthly_cases['xlabel'] = $year;
         $monthly_cases['ylabel'] = 'Total number of cases';
@@ -74,6 +82,57 @@ trait DistrictChartTraits
     // Default: Line
     public function getAgeGroupChart(Request $request)
     {
+        $district = $request->district;
+        $year = $request->year;
+        $colors = ['#6FCF97', '#EB5757']; // infected (green) and death (red) color
+        $colors = ['#ffa600',  '#EB5757']; // this color is more attractive 
+        $ageCategories = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        $index = 0;
+        $charttpye = ['column', 'line'];
+        $age_cases = [];
+
+        $age_group = Data::whereYear('notificationDate', $year)->where('district', $district)->get()->groupBy([
+            'status', 
+            function ($data) {
+                $notificationDate = date_create($data->notificationDate);
+                $birthday = date_create($data->birthday);
+                return date_diff($notificationDate, $birthday, true)->format('%y');
+            }
+        ]);
+        $age_count = [];
+        foreach ($age_group as $status => $ageGroups) {
+            foreach($ageGroups as $age => $cases){
+                $age_count[$status][$age] = count($cases);
+            }
+            ksort($age_count[$status]);
+        }
+        
+
+        foreach ($age_group as $status => $ageGroups) {
+            foreach($ageCategories as $ageCategory){
+                if(!isset($age_count[$status][$ageCategory])){
+                    $age_count[$status][$ageCategory] = 0;
+                }
+            }
+            ksort($age_count[$status]);
+            
+            $age_result = new ApexChart(ucwords($status), array_slice($age_count[$status], 0, count($ageCategories), true));
+            $age_result->set_color($colors[$index]);
+            $age_result->set_type($charttpye[$index++]);
+            $age_cases['data'][] = $age_result;
+        }
+
+        // Customize chart
+        $role = Auth::user()->role;
+        if ($role == 'public') {
+            $age_cases['download'] = false;
+        } else {
+            $age_cases['download'] = true;
+        }
+        $monthly_cases['categories'] = $ageCategories;
+        $age_cases['xlabel'] = 'Age Groups';
+        $age_cases['ylabel'] = 'Total number of cases';
+        return $age_cases;
     }
 
     // Default: Line

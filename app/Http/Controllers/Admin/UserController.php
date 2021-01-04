@@ -18,8 +18,8 @@ class UserController extends Controller
 
     public function getStaffPage()
     {
-        $users = User::get()->where('role', 'staff')->sortBy('id');
-        return view('admin.staff', compact('users'));
+        $staffs = User::get()->where('role', 'staff')->sortBy('id');
+        return view('admin.staff', compact('staffs'));
     }
 
     public function getUserPage()
@@ -35,6 +35,7 @@ class UserController extends Controller
     {
         $user = User::find($id)
             ->update([
+                'title' => $request->input('title'),
                 'fname' => $request->input('fname'),
                 'lname' => $request->input('lname'),
                 'email' => $request->input('email'),
@@ -94,7 +95,7 @@ class UserController extends Controller
 
     public function activateSelected(Request $request)
     {
-        $user_ids = $request->pendingUser;
+        $user_ids = $request->user_ids;
 
         foreach ($user_ids as $user_id) {
             User::find($user_id)->update([

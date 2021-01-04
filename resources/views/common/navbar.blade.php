@@ -13,7 +13,7 @@
             </li>
 
             @yield('climatic-active')
-                <a class="nav-link" href="{{ route('climatic') }}">Climatic</span></a>
+                <a class="nav-link" href="{{ route('climatic', ['year'=>'2009', 'state'=>'JOHOR']) }}">Climatic</span></a>
             </li>
             
             @yield('analytics-active')

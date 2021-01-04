@@ -52,7 +52,7 @@ Route::namespace('Admin')->prefix('admin')->middleware(['can:admin'])->group(fun
 /** Top Nav Link */
 Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
 Route::get('data', 'DataController@index')->name('data.index');
-Route::get('climatic', 'ClimaticController@index')->name('climatic');
+Route::get('climatic/year={year}state={state}', 'ClimaticController@index')->name('climatic');
 Route::get('analytics', 'AnalyticsController@index')->name('analytics');
 Route::get('faq', 'FAQController@index')->name('faqs');
 
@@ -60,22 +60,9 @@ Route::get('faq', 'FAQController@index')->name('faqs');
 /** Data Controller */
 Route::get('getDailyData', 'DataController@getDailyData')->name('data.getDailyData');
 
-/** Climatic Controller */
-
-
 /** FAQ Controller */
 Route::post('togglelike', 'FAQController@toggleLike')->name('faq.toggleLike');
 Route::post('toggledislike', 'FAQController@toggleDislike')->name('faq.toggleDislike');
-
-
-// /** Users Controller */
-// Route::get('users', 'UsersController@index')->name('users.index');
-// Route::post('users', 'UsersController@store')->name('users.store');
-// Route::put('users/update/{id}', 'ProfileController@update');
-// Route::delete('users/{id}', 'ProfileController@destroy');
-
-// /** Users Controller @show */
-// Route::get('/users/id={id}', 'UsersController@show')->name('users.show');
 
 /** District Controller @show*/
 Route::get('/data/year={year}&state={state}&district={district}', 'DistrictController@index')->name('district.index');
@@ -88,6 +75,8 @@ Route::get('/data/year={year}&state={state}', 'DataController@show')->name('data
 Route::prefix('dashboard')->group(function () {
     Route::get('/getOverallChart', 'DashboardController@getLineChart')->name('overview.getOverallChart');
     Route::get('/getAgeChart', 'DashboardController@getAgeChart')->name('overview.getAgeChart');
+    Route::post('/getDistrictDetails', 'DashboardController@getDistrictDetails')->name('dashboard.getDistrictDetails');
+    Route::get('/getGeographicData', 'DashboardController@getGeographicData')->name('dashboard.getGeographicData');
 });
 
 // Graphical data : States
@@ -95,6 +84,8 @@ Route::prefix('state')->group(function () {
     Route::get('/getLocalityChart', 'DataController@getLocalityChart')->name('state.getLocalityChart');
     Route::get('/getGenderChart', 'DataController@getGenderChart')->name('state.getGenderChart');
     Route::get('/getDailyChart', 'DataController@getDailyChart')->name('state.getDailyChart');
+    Route::get('/getAgeGroupChart', 'DataController@getAgeGroupChart')->name('state.getAgeGroupChart');
+
     
 });
 
@@ -103,7 +94,7 @@ Route::prefix('district')->group(function () {
     Route::get('/getLocalityChart', 'DistrictController@getLocalityChart')->name('district.getLocalityChart');
     Route::get('/getDailyChart', 'DistrictController@getDailyChart')->name('district.getDailyChart');
     Route::get('/getMonthlyChart', 'DistrictController@getMonthlyChart')->name('district.getMonthlyChart');
-    
+    Route::get('/getAgeGroupChart', 'DistrictController@getAgeGroupChart')->name('district.getAgeGroupChart');
 });
 
 // Analytics Controller
@@ -114,6 +105,20 @@ Route::prefix('analytics')->group(function () {
     
 });
 
-// Route::get('getSession', function(){return dd(Session::all());});
+
+// Climatical data : District
+Route::prefix('climatic')->group(function () {
+    Route::get('/getClimaticChart', 'ClimaticController@getClimaticChart')->name('climatic.getClimaticChart');
+   
+});
+
+// State controller
+Route::prefix('state')->group(function () {
+    Route::get('/getStateOverYear', 'StateController@getStateOverYear')->name('state.getStateOverYear');
+    Route::get('/getDistrictOverYear', 'StateController@getDistrictOverYear')->name('state.getDistrictOverYear');
+    Route::get('/getAgeGroupOverYear', 'StateController@getAgeGroupOverYear')->name('state.getAgeGroupOverYear');
+    Route::get('/{state}', 'StateController@show')->name('state.show');
+});
+
 
 Auth::routes();

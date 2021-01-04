@@ -8,7 +8,7 @@
 <div class="wrapper">
     <div class="row">
         <div class="col-xl-12">
-            <h1 class="state-title text-center">HFMD Cases in {{ $this_state }}
+            <h2 class="state-title text-center">HFMD Analysis in {{ $this_state }}
                 <button type="button" class="btn dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-chevron-down"></i>
                 </button>
@@ -18,8 +18,8 @@
                     <a class="dropdown-item text-center" href="{{ route('data.show', ['state'=>$msia_state, 'year'=>$this_year]) }}">{{ $msia_state }}</a>
                     @endforeach
                 </div>
-            </h1>
-            <h3 class="year-title text-center">at {{ $this_year }}
+            </h2>
+            <h5 class="year-title text-center">at {{ $this_year }}
                 <button type="button" class="btn dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-chevron-down"></i>
                 </button>
@@ -29,7 +29,7 @@
                     <a class="dropdown-item text-center" href="{{ route('data.show', ['year'=>$year, 'state'=>$this_state]) }}">{{ $year }}</a>
                     @endforeach
                 </div>
-            </h3>
+            </h5>
         </div>
 
         <div class="col-xl-12">
@@ -83,7 +83,9 @@
             </div>
         </div>
     </div>
-
+    <div class="mb-4 text-center link-climatic">
+        <a href="{{ route('climatic', ['year'=>$this_year, 'state'=>$this_state]) }}"><i class="fas fa-cloud"></i> Go to climatic data</a>
+    </div>
     <!-- data table : Infected cases by locality -->
     <div class="jumbotron">
         <h2>Infected cases by locality</h2>
@@ -175,16 +177,16 @@
                                 <div class="card-body">
                                     @if($cat_data['type'] == 'A')
                                     <h1 class="card-title text-secondary">{{ $cat_data['count'] }}</h1>
-                                    <p class="card-text text-secondary font-weight-bolder">District</p>
+                                    <p class="card-text text-secondary font-weight-bolder">{{ $cat_data['count'] < 2 ? 'District' : 'Districts' }}</p>
                                     @elseif($cat_data['type'] == 'B')
                                     <h1 class="card-title text-info">{{ $cat_data['count'] }}</h1>
-                                    <p class="card-text text-info font-weight-bolder">District</p>
+                                    <p class="card-text text-info font-weight-bolder">{{ $cat_data['count'] < 2 ? 'District' : 'Districts' }}</p>
                                     @elseif($cat_data['type'] == 'C')
                                     <h1 class="card-title text-warning">{{ $cat_data['count'] }}</h1>
-                                    <p class="card-text text-warning font-weight-bolder">District</p>
+                                    <p class="card-text text-warning font-weight-bolder">{{ $cat_data['count'] < 2 ? 'District' : 'Districts' }}</p>
                                     @elseif($cat_data['type'] == 'D')
                                     <h1 class="card-title text-danger">{{ $cat_data['count'] }}</h1>
-                                    <p class="card-text text-danger font-weight-bolder">District</p>
+                                    <p class="card-text text-danger font-weight-bolder">{{ $cat_data['count'] < 2 ? 'District' : 'Districts' }}</p>
                                     @endif
                                 </div>
                                 @if($cat_data['type'] == 'A')
@@ -210,25 +212,33 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="jumbotron">
+                            <h2>Age Group Distribution in {{ $this_state }}</h2>
+                            <h5>at {{ $this_year }}</h5>
+                            <hr>
+                            <div id="lineChart_age"></div>
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="jumbotron">
                             <h2>Infected cases by Male</h2>
-                            <h5>at {{ $this_year }}</h5>
+                            <h5>in {{ $this_state }} at {{ $this_year }}</h5>
                             <hr>
-                            <div id="male-pieChart" height="170"></div>
+                            <div id="male-pieChart"></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="jumbotron">
                             <h2>Infected cases by Female</h2>
-                            <h5>at {{ $this_year }}</h5>
+                            <h5>in {{ $this_state }} at {{ $this_year }}</h5>
                             <hr>
-                            <div id="female-pieChart" height="170"></div>
+                            <div id="female-pieChart"></div>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="jumbotron">
-                            <h2>Infected cases in {{ $this_state }}</h2>
+                            <h2>Infected cases daily in {{ $this_state }}</h2>
                             <h5>at {{ $this_year }}</h5>
                             <hr>
                             <div id="heatmap"></div>
@@ -253,7 +263,7 @@
             info: false,
             "language": {
                 search: ' ',
-                searchPlaceholder: 'Search states'
+                searchPlaceholder: 'Search district'
             }
         });
     });
@@ -267,6 +277,7 @@
         plotMaleChart();
         plotFemaleChart();
         plotHeatmap();
+        plotAgeGroupChart();
     });
 
     function plotLocalityChart() {
@@ -433,7 +444,6 @@
             },
             url: '{{ route("state.getDailyChart") }}',
             success: function(chart) {
-                console.log(chart)
 
                 var options = {
                     series: chart.data,
@@ -504,7 +514,107 @@
                 chart.render();
             }
         });
+    }
 
+    function plotAgeGroupChart() {
+        $.ajax({
+            type: 'GET',
+            data: {
+                year: "{{ $this_year }}",
+                state: "{{ $this_state }}",
+            },
+            url: '{{ route("state.getAgeGroupChart") }}',
+            beforeSend: function() {},
+            success: function(chart) {
+                var options = {
+                    series: chart.data,
+                    chart: {
+                        height: 350,
+                        type: 'line',
+                        stacked: false,
+                    },
+                    stroke: {
+                        width: [0, 3],
+                        curve: 'smooth',
+                    },
+                    toolbar: {
+                        tools: {
+                            download: chart.download
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                    },
+                    plotOptions: {
+                        bar: {
+                            columnWidth: '50%'
+                        }
+                    },
+
+                    fill: {
+                        opacity: [0.85, 1],
+                        gradient: {
+                            inverseColors: false,
+                            shade: 'light',
+                            type: "vertical",
+                            opacityFrom: 0.85,
+                            opacityTo: 0.55,
+                            stops: [0, 100, 100, 100]
+                        }
+                    },
+                    labels: ['Age 0', 'Age 1', 'Age 2', 'Age 3', 'Age 4', 'Age 5', 'Age 6', 'Age 7', 'Age 8', 'Age 9', 'Age 10', 'Age 11', 'Age 12'],
+                    markers: {
+                        size: 0
+                    },
+                    xaxis: {
+                        title: {
+                            text: chart.xlabel,
+                        },
+                        type: 'age'
+                    },
+                    yaxis: {
+                        title: {
+                            text: chart.ylabel,
+                        },
+                        min: 0,
+                        forceNiceScale: true,
+                    },
+                    tooltip: {
+                        shared: true,
+                        intersect: false,
+                        y: {
+                            formatter: function(y) {
+                                if (typeof y !== "undefined") {
+                                    return y.toFixed(0) + " cases";
+                                }
+                                return y;
+
+                            }
+                        }
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        enabledOnSeries: [0],
+                        formatter: function(val, opts) {
+                            let percent = opts.w.globals.seriesPercent[opts.seriesIndex][opts.dataPointIndex];
+                            return percent.toFixed(1) + "%";
+                        },
+                        offsetY: -10,
+                        style: {
+                            fontSize: '12px',
+                            colors: ["#304758"]
+                        },
+                    },
+                    markers: {
+                        size: 4
+                    }
+                };
+
+                var chart = new ApexCharts(document.getElementById('lineChart_age'), options);
+                chart.render();
+
+            },
+        });
     }
 </script>
 @endsection

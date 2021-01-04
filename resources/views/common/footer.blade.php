@@ -5,34 +5,34 @@
         <div class="row">
             <div class="col-sm-6 col-md-3">
                 <ul>
-                    <li><a href="">Johor</a></li>
-                    <li><a href="">Kedah</a></li>
-                    <li><a href="">Kelantan</a></li>
-                    <li><a href="">Malacca</a></li>
+                    <li><a href="{{ route('state.show', 'JOHOR') }}">Johor</a></li>
+                    <li><a href="{{ route('state.show', 'KEDAH') }}">Kedah</a></li>
+                    <li><a href="{{ route('state.show', 'KELANTAN') }}">Kelantan</a></li>
+                    <li><a href="{{ route('state.show', 'MELAKA') }}">Melaka</a></li>
                 </ul>
             </div>
             <div class="col-sm-6 col-md-3">
                 <ul>
-                    <li><a href="">Negeri Sembilan</a></li>
-                    <li><a href="">Pahang</a></li>
-                    <li><a href="">Penang</a></li>
-                    <li><a href="">Perak</a></li>
+                    <li><a href="{{ route('state.show', 'NEGERI SEMBILAN') }}">Negeri Sembilan</a></li>
+                    <li><a href="{{ route('state.show', 'PAHANG') }}">Pahang</a></li>
+                    <li><a href="{{ route('state.show', 'PULAU PINANG') }}">Pulau Pinang</a></li>
+                    <li><a href="{{ route('state.show', 'PERAK') }}">Perak</a></li>
                 </ul>
             </div>
             <div class="col-sm-6 col-md-3">
                 <ul>
-                    <li><a href="">Perlis</a></li>
-                    <li><a href="">Sabah</a></li>
-                    <li><a href="">Sarawak</a></li>
-                    <li><a href="">Selangor</a></li>
+                    <li><a href="{{ route('state.show', 'PERLIS') }}">Perlis</a></li>
+                    <li><a href="{{ route('state.show', 'SABAH') }}">Sabah</a></li>
+                    <li><a href="{{ route('state.show', 'SARAWAK') }}">Sarawak</a></li>
+                    <li><a href="{{ route('state.show', 'SELANGOR') }}">Selangor</a></li>
                 </ul>
             </div>
             <div class="col-sm-6 col-md-3">
                 <ul>
-                    <li><a href="">Terangganu</a></li>
-                    <li><a href="">Kuala Lumpur</a></li>
-                    <li><a href="">Labuan</a></li>
-                    <li><a href="">Putrajaya</a></li>
+                    <li><a href="{{ route('state.show', 'TERENGGANU') }}">Terangganu</a></li>
+                    <li><a href="{{ route('state.show', 'KUALA LUMPUR') }}">Kuala Lumpur</a></li>
+                    <li><a href="{{ route('state.show', 'LABUAN') }}">Labuan</a></li>
+                    <li><a href="{{ route('state.show', 'PUTRAJAYA') }}">Putrajaya</a></li>
                 </ul>
             </div>
         </div>

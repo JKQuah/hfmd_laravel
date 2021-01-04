@@ -43,4 +43,36 @@
     });
 </script>
 @yield('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+@if(Session::has('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: '{!!Session::get("success")!!}',
+        showConfirmButton: false,
+        timer: 2000
+    })
+</script>
+@endif
+@if(Session::has('error'))
+<script>
+    Swal.fire({
+        title: 'Oops...',
+        html: '{!!Session::get("error")!!}',
+        icon: 'error'
+    })
+</script>
+@endif
+@if(Session::has('missing'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    Swal.fire({
+        title: 'Data is temporary not available',
+        text: '{!!Session::get("missing")!!}',
+        icon: 'warning',
+        showCloseButton: true,
+        showConfirmButton: false,
+    })
+</script>
+@endif
 </html>

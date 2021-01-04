@@ -156,3 +156,37 @@
     border: 0;
     background-color: transparent;
 }
+
+/* Geographical map */
+ul.map-state-label {
+    list-style: none;
+}
+ 
+ul.map-state-label li:nth-child(odd):before {
+    content: "•";
+    font-size: 34px;
+    padding-right: 5px;
+    color: var(--infected);
+}
+
+ul.map-state-label li:nth-child(even):before {
+    content: "•";
+    font-size: 34px;
+    padding-right: 5px;
+    color: var(--death);
+    margin-top: -20px;
+    margin-bottom: -20px;
+}
+
+ul.map-state-label li{
+    text-align: left !important;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+}
+
+.tt_name_sm {
+    float: unset !important;
+    margin-bottom: 4px;
+    font-size: 14px;
+}

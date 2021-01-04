@@ -255,9 +255,7 @@
             success: function(districts){
                 $("#request-district-" + toggle_count).multiselect('dataprovider', districts);
             }
-        })
-            
-        
+        });  
     }
 
     $(document).ready(function() {

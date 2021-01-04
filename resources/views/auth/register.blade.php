@@ -73,7 +73,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">+6</div>
                                     </div>
-                                    <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" placeholder="012-5558686" pattern="^(\+?6?01)[0-46-9]-*[0-9]{7,8}$" oninvalid="setCustomValidity('The phone format should be 016-xxx4567')" required autocomplete="phone">
+                                    <input id="phone" type="text" class="form-control tel @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" placeholder="012-555 8686" required autocomplete="phone">
 
                                     @error('phone')
                                     <span class="invalid-feedback" role="alert">
@@ -138,7 +138,11 @@
 </div>
 @endsection
 @section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
 <script>
+     $(document).ready(function() {
+        $('.tel').inputmask('019-999 9999[9]');
+    });
     // Prevent letters in input form
     $(function() {
         var regExp = /[a-z]/i;
