@@ -1,5 +1,7 @@
 @extends('layouts.layout')
 
+@section('title', "$this_state")
+
 @section('css')
 <link rel="stylesheet" type="text/css" href="/css/data.css">
 @endsection
@@ -8,7 +10,7 @@
 <div class="wrapper">
     <div class="row">
         <div class="col-xl-12">
-            <h2 class="state-title text-center">HFMD Analysis in {{ $this_state }}
+            <h2 class="state-title text-center">HFMD Analysis at {{ $this_state }}
                 <button type="button" class="btn dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-chevron-down"></i>
                 </button>
@@ -19,7 +21,7 @@
                     @endforeach
                 </div>
             </h2>
-            <h5 class="year-title text-center">at {{ $this_year }}
+            <h5 class="year-title text-center">in {{ $this_year }}
                 <button type="button" class="btn dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-chevron-down"></i>
                 </button>

@@ -55,7 +55,7 @@ class DashboardController extends Controller
 
         return view('dashboard.index', [
             'overall' => $overall,
-            'summary' => $summary_by_year,
+            'summary' => array_chunk($summary_by_year, 5),
             'years' => $years,
             'states' => $states,
             'colors' => $colors,

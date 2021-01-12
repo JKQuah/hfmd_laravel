@@ -1,5 +1,7 @@
 @extends('layouts.layout')
 
+@section('title', "$state")
+
 @section('css')
 <!-- Styles -->
 <link rel="stylesheet" type="text/css" href="/css/state.css">

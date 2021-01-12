@@ -15,6 +15,7 @@ class ClimaticController extends Controller
 
     public function index($year, $state)
     {
+        
         if(!$this->verifyState($state)){
             return redirect()->back()->with("missing", "State doesn\'t not exist in the database");
         }

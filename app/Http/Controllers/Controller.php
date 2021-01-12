@@ -88,4 +88,23 @@ class Controller extends BaseController
         $years = $this->getAllYears();
         return in_array($year, $years);
     }
+
+    public function getAllYearsWithTrashed(){
+        $years = Data::withTrashed()->get()->unique(function($item){
+            return date('Y', strtotime($item['notificationDate']));
+        })->map(function($item){
+            return date('Y', strtotime($item['notificationDate']));
+        })->sort()->values()->toArray();
+        return $years;
+    }
+
+    public function getAllStatesWithTrashed()
+    {
+        $states =  Data::withTrashed()->get()->map(function ($data) {
+            return collect($data->toArray())
+                ->only('state')
+                ->all();
+        })->unique('state')->flatten()->sort();
+        return $states;
+    }
 }

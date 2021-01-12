@@ -16,9 +16,14 @@ class FaqController extends Controller
     }
 
     public function store(Request $request){
+        if(!isset($request->question)){
+            return redirect()->back()->with('error', 'Question must be provided.')->withInput();
+        }
+        
         if(!isset($request->answer)){
             return redirect()->back()->with('error', 'Answer must be provided.')->withInput();
         }
+        
         $faq = new FAQ();
         $faq->question = $request->question;
         $faq->answer = $request->answer;

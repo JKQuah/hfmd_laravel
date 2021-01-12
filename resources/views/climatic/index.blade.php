@@ -3,6 +3,8 @@
 <li class="nav-item active">
 @endsection
 
+@section('title', 'Climatic')
+
 @section('css')
 <!-- Styles -->
 <link rel="stylesheet" type="text/css" href="/css/climatic.css">

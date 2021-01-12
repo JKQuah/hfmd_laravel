@@ -13,12 +13,12 @@
             </li>
 
             @yield('climatic-active')
-                <a class="nav-link" href="{{ route('climatic', ['year'=>'2009', 'state'=>'JOHOR']) }}">Climatic</span></a>
+                <a class="nav-link" href="{{ route('climatic', ['year'=>'2015', 'state'=>'JOHOR']) }}">Climatic</span></a>
             </li>
             
-            @yield('analytics-active')
+            <!-- @yield('analytics-active')
                 <a class="nav-link" href="{{ route('analytics') }}">Analytics</a>
-            </li>
+            </li> -->
             @yield('faqs-active')
                 <a class="nav-link" href="{{ route('faqs') }}">FAQ</a>
             </li>
@@ -62,21 +62,23 @@
             <div class="modal-body share-wrapper">
                 <div class="row">
                     <div class="col col-sm-4 vertical-center">
-                        <div class="social-media-wrapper">
-                            <div class="social-media-img">
-                                <img src="{{ asset('img/social-icon/gmail.jpg') }}" alt="Gmail Logo" title="Share through Gmail">
+                        <a href="mailto:?subject=Invitation to new HFMD Analtyics Dashboard&amp;body=There is a new HFMD Analtyics Dashboard available online. Check it out!!%0d%0a%0d%0aHere is the link: {{ route('dashboard.index') }}%0d%0a%0d%0aRegards,">
+                            <div class="social-media-wrapper">
+                                <div class="social-media-img">
+                                    <img src="{{ asset('img/social-icon/gmail.jpg') }}" alt="Gmail Logo" title="Share through Gmail">
+                                </div>
+                                <p>Gmail</p>
                             </div>
-                            <p>Gmail</p>
-                        </div>
+                        </a>
                     </div>
-                    <div class="col col-sm-4 vertical-center">
+                    <!-- <div class="col col-sm-4 vertical-center">
                         <div class="social-media-wrapper">
                             <div class="social-media-img">
                                 <img src="{{ asset('img/social-icon/facebook.jpg') }}" alt="Gmail Logo" title="Share through Facebook">
                             </div>
                             <p>Facebook</p>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col col-sm-4 vertical-center">
                         <a onclick="whatsappMe()">
                             <div class="social-media-wrapper">
@@ -96,10 +98,8 @@
     </div>
 </div>
 
-@section('js')
 <script>
     function whatsappMe() {
         window.open('https://api.whatsapp.com/send?phone=&text={{ route("dashboard.index") }}','_blank')
     }
 </script>
-@endsection

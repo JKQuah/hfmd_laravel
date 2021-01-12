@@ -105,7 +105,7 @@
                             <div class="form-group row">
                                 <label for="faq_new_question" class="col-sm-2 col-form-label">Question</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="faq_new_question" placeholder="Question" name="question" value="{{ old('question') }}" required>
+                                    <input type="text" class="form-control" id="faq_new_question" placeholder="Question" name="question" value="{{ old('question') }}">
                                 </div>
                             </div>
                             <div class="form-group row">

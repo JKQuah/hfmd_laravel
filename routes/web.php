@@ -46,7 +46,13 @@ Route::namespace('Admin')->prefix('admin')->middleware(['can:admin'])->group(fun
     Route::post('/destroy/faq/{id}', 'FAQController@destroy')->name('destroy_faq');
     Route::post('/restore/faq/{id}', 'FAQController@restore')->name('restore_faq');
 
+    //Manage Data
+    Route::post('enableYear', 'DataController@enableYear');
+    Route::post('disableYear', 'DataController@disableYear');
+    Route::post('enableState', 'DataController@enableState');
+    Route::post('disableState', 'DataController@disableState');
 
+    Route::post('data/import', 'DataController@import')->name('data.import');
 });
 
 /** Top Nav Link */

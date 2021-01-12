@@ -66,11 +66,11 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
-                                        @if (Route::has('password.request'))
+                                        <!-- @if (Route::has('password.request'))
                                         <a class="forget link" href="{{ route('password.request') }}">
                                             {{ __('Forgot Password?') }}
                                         </a>
-                                        @endif
+                                        @endif -->
                                         <div class="checkRememberMe">
                                             <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 

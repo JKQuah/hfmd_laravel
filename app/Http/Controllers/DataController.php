@@ -25,7 +25,7 @@ class DataController extends Controller
         }
 
         if(!$this->verifyYear($year)){
-            return redirect()->back()->with("missing", "Year doesn\'t not exist in the database");
+            return redirect()->back()->with("missing", "Year ".$year." doesn\'t not exist in the database.");
         }
 
         $data_weekly_count = $this->getStateWeeklyData($year, $state);

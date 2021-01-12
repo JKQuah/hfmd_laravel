@@ -15,11 +15,11 @@ class DistrictController extends Controller
 
     public function index($this_year, $this_state, $district){
         if(!$this->verifyState($this_state)){
-            return redirect()->back()->with("missing", "State doesn\'t not exist in the database");
+            return redirect()->back()->with("missing", "State doesn\'t not exist");
         }
 
         if(!$this->verifyDistrict($this_state, $district)){
-            return redirect()->back()->with("missing", "District doesn\'t not exist in the database");
+            return redirect()->back()->with("missing", "District doesn\'t not exist");
         }
 
         if(!$this->verifyYear($this_year)){

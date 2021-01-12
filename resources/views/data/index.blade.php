@@ -3,13 +3,14 @@
 <li class="nav-item active">  
 @endsection
 
+@section('title', 'Data')
+
 @section('css')
 <!-- Styles -->
 <link rel="stylesheet" type="text/css" href="/css/data.css">
 <!-- Calender -->
 <link rel="stylesheet" href="css/evo-calendar.css" />
 <link rel="stylesheet" href="css/evo-calendar.orange-coral.css" />
-
 @endsection
 
 @section('content')

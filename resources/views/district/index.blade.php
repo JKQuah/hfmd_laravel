@@ -1,13 +1,14 @@
 @extends('layouts.layout')
 
+@section('title', "$district")
+
 @section('css')
 <link rel="stylesheet" type="text/css" href="/css/data.css">
 @endsection
 
 @section('content')
-
 <div class="wrapper">
-    <h2 class="text-center">HFMD Cases in <a href="{{ route('data.show', ['year'=>$year, 'state'=>$state]) }}">{{ $state }}</a>, {{ $district }}
+    <h2 class="text-center">HFMD Cases at <a href="{{ route('data.show', ['year'=>$year, 'state'=>$state]) }}">{{ $state }}</a>, {{ $district }}
         <button type="button" class="btn dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-chevron-down"></i>
         </button>
@@ -18,7 +19,7 @@
             @endforeach
         </div>
     </h2>
-    <h5 class="text-center mb-3">at {{ $year }}</h5>
+    <h5 class="text-center mb-3">in {{ $year }}</h5>
     <!-- data total -->
     <div class="row">
         <div class="col-sm-12">

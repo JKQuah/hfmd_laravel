@@ -1,5 +1,7 @@
 @extends('layouts.layout')
 
+@section('title', 'FAQ')
+
 @section('faqs-active')
 <li class="nav-item active">
 @endsection
