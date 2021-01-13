@@ -134,6 +134,13 @@
             <table class="table table-sm table-responsive-lg">
                 <h2>District Distribution across Week</h2>
                 <h5>at {{ $this_year }}</h5>
+                <hr>
+                <div class="form-group row">
+                    <label for="inputCases" class="col-sm-2 col-form-label text-right">You may highlight</label>
+                    <div class="col-sm-3">
+                        <input type="number" class="form-control border-bottom" style="border: 0" id="inputCases" placeholder="Enter Number of cases" min='0'>
+                    </div>
+                </div>
                 <thead class="table-header">
                     <tr>
                         <th scope="col" class="freeze-col">State <i class="fas fa-sort text-secondary"></i></th>
@@ -145,7 +152,7 @@
                 <tbody>
 
                     @foreach($weekly_details as $district => $values)
-                    <tr class="table-row">
+                    <tr class="table-row week">
                         <th scope="row" class="freeze-col ">
                             <a class="state-link" href="{{  route('district.index', ['year'=>$this_year, 'state'=>$this_state, 'district'=>$district] ) }}">{{ $district }}</a>
                         </th>
@@ -280,6 +287,18 @@
         plotFemaleChart();
         plotHeatmap();
         plotAgeGroupChart();
+
+        $("#inputCases").on('keyup change', function(){
+            var value = $("#inputCases").val();
+            $('.week td').each(function() {
+                // weekdata += $(this).html(); 
+                if(parseInt($(this).html()) == value){
+                    $(this).css('background-color', '#f2c94c')
+                } else {
+                    $(this).css('background-color', '#fff')
+                }
+            });
+        });
     });
 
     function plotLocalityChart() {
@@ -292,12 +311,19 @@
             url: '{{ route("state.getLocalityChart") }}',
             beforeSend: function() {},
             success: function(chart) {
-                console.log(chart.labels.length)
+                var chartHeight;
+                if(chart.labels.length <= 5){
+                    chartHeight = 450;
+                } else if(chart.labels.length <= 10){
+                    chartHeight = 850;
+                } else {
+                    chartHeight = 1200;
+                }
                 var options = {
                     series: chart.data,
                     chart: {
                         type: chart.type,
-                        height: (chart.labels.length < 10) ? 450 : 1200,
+                        height: chartHeight,
                         zoom: {
                             enabled: true
                         },
@@ -451,7 +477,7 @@
                 var options = {
                     series: chart.data,
                     chart: {
-                        height: 450,
+                        height: 500,
                         type: 'heatmap',
                         zoom: {
                             enabled: true
@@ -536,18 +562,21 @@
                     series: chart.data,
                     chart: {
                         height: 350,
-                        type: 'line',
                         stacked: false,
+                        toolbar: {
+                            tools: {
+                                download: chart.download
+                            },
+                        },
+                        zoom: {
+                            enabled: true
+                        },
                     },
                     stroke: {
-                        width: [0, 3],
+                        width: [3, 0],
                         curve: 'smooth',
                     },
-                    toolbar: {
-                        tools: {
-                            download: chart.download
-                        }
-                    },
+                    
                     legend: {
                         position: 'top',
                     },
