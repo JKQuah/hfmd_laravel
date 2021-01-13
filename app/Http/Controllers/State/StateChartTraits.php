@@ -185,10 +185,10 @@ trait StateChartTraits
         $state = $request->state;
         $year = $request->year;
         $colors = ['#6FCF97', '#EB5757']; // infected (green) and death (red) color
-        $colors = ['#ffa600',  '#EB5757']; // this color is more attractive 
+        $colors = ['#EB5757', '#ffa600']; // this color is more attractive 
         $ageCategories = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
         $index = 0;
-        $charttpye = ['column', 'line'];
+        $charttpye = ['line', 'column'];
         $age_cases = [];
 
         $age_group = Data::whereYear('notificationDate', $year)->where('state', $state)->get()->groupBy([

@@ -8,6 +8,7 @@ use App\Data;
 use App\Http\Controllers\State\StateDataTraits;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ClimaticController extends Controller
 {
@@ -15,13 +16,13 @@ class ClimaticController extends Controller
 
     public function index($year, $state)
     {
-        
-        if(!$this->verifyState($state)){
+
+        if (!$this->verifyState($state)) {
             return redirect()->back()->with("missing", "State doesn\'t not exist in the database");
         }
 
-        if(!$this->verifyYear($year)){
-            return redirect()->back()->with("missing", "Year ".$year." doesn\'t not exist in the database.");
+        if (!$this->verifyYear($year)) {
+            return redirect()->back()->with("missing", "Year " . $year . " doesn\'t not exist in the database.");
         }
         $this_year = $year;
         $this_state = $state;
@@ -48,8 +49,14 @@ class ClimaticController extends Controller
         $mean_humidity = collect($data_humidity)->avg();
 
         return view('climatic.index', compact(
-            'years', 'states', 'this_year', 'this_state',
-            'mean_temp', 'mean_rainAmount', 'mean_rainDay', 'mean_humidity', 
+            'years',
+            'states',
+            'this_year',
+            'this_state',
+            'mean_temp',
+            'mean_rainAmount',
+            'mean_rainDay',
+            'mean_humidity',
         ));
     }
 
@@ -93,7 +100,7 @@ class ClimaticController extends Controller
             $data_rainDay[] += $value->rainDay;
             $data_humidity[] += $value->humidity;
         }
-        
+
         $total = $this->createApexChart('Total Number of Cases', $monthly_data, '#ffa600', 'bar');
         switch ($type) {
             case 'temperature':
@@ -114,6 +121,12 @@ class ClimaticController extends Controller
         }
         $result['data'] = [$total, $res];
         $result['category'] = $this->getAllMonths();
+        $role = Auth::user()->role;
+        if ($role == 'public') {
+            $result['download'] = false;
+        } else {
+            $result['download'] = true;
+        }
         return $result;
     }
 }

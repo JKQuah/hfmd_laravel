@@ -12,7 +12,7 @@ class StateController extends Controller
 {
     public function show($state)
     {
-        if(!$this->verifyState($state)){
+        if (!$this->verifyState($state)) {
             return redirect()->back()->with("missing", "State doesn\'t not exist");
         }
 
@@ -27,14 +27,14 @@ class StateController extends Controller
         }
 
         $counter = 0;
-        foreach($results as $result => $count){
+        foreach ($results as $result => $count) {
             if ($counter != 0) {
                 $next = next($results);
                 $prev = prev($results);
 
-                if($next > $prev){
+                if ($next > $prev) {
                     $grow = 'larger';
-                } elseif($next < $prev){
+                } elseif ($next < $prev) {
                     $grow = 'smaller';
                 } else {
                     $grow = 'equal';
@@ -55,12 +55,12 @@ class StateController extends Controller
             }
             $counter++;
         }
-        
+
         $sum = 0;
-        foreach($results as $year => $count){
+        foreach ($results as $year => $count) {
             $sum += $count;
         }
-        
+
         return view('state.show', compact('state', 'districts', 'summary', 'sum'));
     }
 
@@ -89,6 +89,12 @@ class StateController extends Controller
             $chart_result['category'] = $this->getAllYears();
             $chart_result['xlabel'] = $state;
             $chart_result['ylabel'] = 'Total number of cases';
+            $role = Auth::user()->role;
+            if ($role == 'public') {
+                $chart_result['download'] = false;
+            } else {
+                $chart_result['download'] = true;
+            }
         }
         return $chart_result;
     }
@@ -130,7 +136,14 @@ class StateController extends Controller
             $chart_result['category'] = $this->getAllYears();
             $chart_result['xlabel'] = $district;
             $chart_result['ylabel'] = 'Total number of cases';
+            $role = Auth::user()->role;
+            if ($role == 'public') {
+                $chart_result['download'] = false;
+            } else {
+                $chart_result['download'] = true;
+            }
         }
+
         return $chart_result;
     }
 
