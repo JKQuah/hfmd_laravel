@@ -121,9 +121,9 @@
             </div>
             <div class="col-xl-7 col-sm-12 case-box overview-map-wrapper" style="padding: 3rem 0.5rem;">
                 <div class="subtitle">
-                    <p>Malaysia Geographical Map</p>
+                    <p>Case Distribution in Malaysia</p>
                     <div>
-                        <label for="map-year">Year: </label>
+                        <label for="map-year">at Year: </label>
                         <select name="map-year" id="map-year" onchange="changeYear()">
                             @foreach($years as $year)
                             <option value="{{ $year }}">{{ $year }}</option>
