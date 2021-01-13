@@ -43,11 +43,19 @@
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <h2 class="card-title text-center font-weight-bold">{{ $single_district['i_male'] }}</h2>
+                                @if($single_district['i_male'] == 0)
+                                <p class="card-text text-center">Male (0.0%)</p>
+                                @else
                                 <p class="card-text text-center">Male ({{ number_format(($single_district['i_male'] * 100 / $single_district['infected']), 1) }}%)</p>
+                                @endif
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <h2 class="card-title text-center font-weight-bold">{{ $single_district['i_female'] }}</h2>
+                                @if($single_district['i_female'] == 0)
+                                <p class="card-text text-center">Female (0.0%)</p>
+                                @else
                                 <p class="card-text text-center">Female ({{ number_format(($single_district['i_female'] * 100 / $single_district['infected']), 1) }}%)</p>
+                                @endif
                             </div>
                         </div>
                     </div>
