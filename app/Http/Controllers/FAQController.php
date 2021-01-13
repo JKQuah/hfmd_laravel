@@ -10,7 +10,7 @@ class FAQController extends Controller
     public function index(){
         $faqs = FAQ::paginate(5);
         
-        return view('FAQ.index', compact('faqs'));
+        return view('faq.index', compact('faqs'));
     }
 
     public function toggleLike(Request $request){
