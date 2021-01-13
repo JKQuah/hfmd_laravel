@@ -41,7 +41,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group col-sm-12 col-md-6 m-auto" data-toggle="tooltip" data-placement="right" title="State must be selected">
+                            <div class="form-group col-sm-12 col-md-6 m-auto" data-toggle="tooltip" data-placement="right" title="District must be selected">
                                 <label for="request-district">District</label>
                                 <select name="district" id="request-district" class="form-control" style="text-align-last: center;" disabled required>
                                     <option value="" hidden>Select...</option>
