@@ -23,7 +23,7 @@
                     <span class="float-left"><a class="text-dark" href="{{ route('data.show', ['year'=>$data['year'], 'state'=>$state]) }}">{{ $data['year'] }} <i class="fas fa-angle-right"></i></a></span>
                     <span class="float-right">{{ number_format($data['count']) }}
                         <small>({{ number_format($data['count']/$sum*100, 2) }}%)</small>
-                        
+
                         @if($data['grow'] == 'equal')
                         <span class="text-warning">
                             <i class="fas fa-minus"></i>
@@ -44,6 +44,29 @@
                     <span class="float-left">Total number of cases</span>
                     <span class="float-right">{{ number_format($sum) }}</span>
                 </li>
+                <li class="list-group-item">
+                    <small>
+                        <span class="text-warning">
+                            <i class="fas fa-minus"></i>
+                            No comparison with previous year
+                        </span>
+                    </small>
+                    <br>
+                    <small>
+                        <span class="text-danger">
+                            <i class="fas fa-arrow-circle-up"></i>
+                            Cases rose compared to previous year
+                        </span>
+                    </small>
+                    <br>
+                    <small>
+                        <span class="text-success">
+                            <i class="fas fa-arrow-circle-down"></i>
+                            Cases reduced compared to previous year
+                        </span>
+                    </small>
+                </li>
+
             </ul>
         </div>
         <div class="col-sm-12 col-md-8">
@@ -143,13 +166,16 @@
         },
         success: function(chart) {
             $('#overall-spinner').css('display', 'none');
+           
             var options = {
                 series: chart.data,
                 chart: {
                     type: 'area',
                     height: 400,
                     toolbar: {
-                        show: true
+                        tools: {
+                            download: chart.download
+                        }
                     },
                     zoom: {
                         enabled: true
@@ -244,7 +270,9 @@
                             type: 'area',
                             height: 350,
                             toolbar: {
-                                show: true
+                                tools: {
+                                    download: chart.download
+                                }
                             },
                             zoom: {
                                 enabled: true
@@ -335,7 +363,9 @@
                             height: 500,
                             stacked: true,
                             toolbar: {
-                                show: true
+                                tools: {
+                                    download: chart.download
+                                }
                             },
                             zoom: {
                                 enabled: true
