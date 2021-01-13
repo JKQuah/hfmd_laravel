@@ -292,11 +292,12 @@
             url: '{{ route("state.getLocalityChart") }}',
             beforeSend: function() {},
             success: function(chart) {
+                console.log(chart.labels.length)
                 var options = {
                     series: chart.data,
                     chart: {
                         type: chart.type,
-                        height: 350,
+                        height: (chart.labels.length < 10) ? 450 : 1200,
                         zoom: {
                             enabled: true
                         },
@@ -309,7 +310,7 @@
                     },
                     plotOptions: {
                         bar: {
-                            horizontal: false,
+                            horizontal: true,
                             dataLabels: {
                                 position: 'top'
                             }
@@ -321,7 +322,7 @@
                             let percent = opts.w.globals.seriesPercent[opts.seriesIndex][opts.dataPointIndex];
                             return percent.toFixed(1) + "%";
                         },
-                        offsetY: -20,
+                        offsetX: 30,
                         style: {
                             fontSize: '12px',
                             colors: ["#304758"]
@@ -450,7 +451,7 @@
                 var options = {
                     series: chart.data,
                     chart: {
-                        height: 350,
+                        height: 450,
                         type: 'heatmap',
                         zoom: {
                             enabled: true
@@ -464,7 +465,7 @@
                     plotOptions: {
                         heatmap: {
                             shadeIntensity: 0.5,
-                            radius: 5,
+                            radius: 35,
                             useFillColorAsStroke: false,
                             colorScale: {
                                 ranges: [{
@@ -502,7 +503,10 @@
 
                     },
                     dataLabels: {
-                        enabled: false
+                        enabled: true,
+                        style: {
+                            colors: ['#fff']
+                        }
                     },
                     stroke: {
                         width: 1
