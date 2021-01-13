@@ -12,7 +12,7 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="form-group row">
-                            <label for="title" class="col-md-12 col-form-label text-md-left">{{ __('Title') }}</label>
+                            <label for="title" class="col-md-12 col-form-label text-md-left">{{ __('Title') }} <span class="text-danger">*</span></label>
 
                             <div class="col-4">
                                 <select name="title" id="new-user-title" class="form-control @error('title') is-invalid @enderror" name="title" required>
@@ -30,7 +30,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <label for="fname" class="col-form-label text-md-left">{{ __('First Name') }}</label>
+                                <label for="fname" class="col-form-label text-md-left">{{ __('First Name') }} <span class="text-danger">*</span></label>
                                 <input id="fname" type="text" class="form-control @error('fname') is-invalid @enderror" name="fname" value="{{ old('fname') }}" autocomplete="fname" autofocus required>
                                 @error('fname')
                                 <span class="invalid-feedback" role="alert">
@@ -39,7 +39,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="lname" class="col-form-label text-md-left">{{ __('Last Name') }}</label>
+                                <label for="lname" class="col-form-label text-md-left">{{ __('Last Name') }} <span class="text-danger">*</span></label>
                                 <input id="lname" type="text" class="form-control @error('lname') is-invalid @enderror" name="lname" value="{{ old('lname') }}" autocomplete="lname" required>
 
                                 @error('lname')
@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-12 col-form-label text-md-left">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-12 col-form-label text-md-left">{{ __('E-Mail Address') }} <span class="text-danger">*</span></label>
 
                             <div class="col-md-12">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="example@hfmd.com" required autocomplete="email">
@@ -66,7 +66,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="phone" class="col-md-12 col-form-label text-md-left">{{ __('Phone Number') }}</label>
+                            <label for="phone" class="col-md-12 col-form-label text-md-left">{{ __('Phone Number') }} <span class="text-danger">*</span></label>
 
                             <div class="col-md-12">
                                 <div class="input-group">
@@ -85,7 +85,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-12 col-form-label text-md-left">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-12 col-form-label text-md-left">{{ __('Password') }} <span class="text-danger">*</span></label>
 
                             <div class="col-md-12">
                                 <div class="input-group">
@@ -107,7 +107,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-12 col-form-label text-md-left">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-12 col-form-label text-md-left">{{ __('Confirm Password') }} <span class="text-danger">*</span></label>
 
                             <div class="col-md-12">
                                 <div class="input-group">
