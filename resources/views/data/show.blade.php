@@ -104,9 +104,9 @@
                     <h5>at {{ $this_year }}</h5>
                     <hr>
                     <div class="form-group row">
-                        <label for="inputStateCases" class="col-sm-2 col-form-label text-right">You may highlight</label>
+                        <label for="inputMonthCases" class="col-sm-2 col-form-label text-right">You may highlight</label>
                         <div class="col-sm-3">
-                            <input type="number" class="form-control border-bottom" style="border: 0" id="inputStateCases" placeholder="Enter Number of cases" min='0'>
+                            <input type="number" class="form-control border-bottom" style="border: 0" id="inputMonthCases" placeholder="Enter Number of cases" min='0'>
                         </div>
                     </div>
                     <table class="table table-sm table-responsive-lg">
@@ -143,11 +143,12 @@
                 <h5>at {{ $this_year }}</h5>
                 <hr>
                 <div class="form-group row">
-                    <label for="inputCases" class="col-sm-2 col-form-label text-right">You may highlight</label>
+                    <label for="inputWeekCases" class="col-sm-2 col-form-label text-right">You may highlight</label>
                     <div class="col-sm-3">
-                        <input type="number" class="form-control border-bottom" style="border: 0" id="inputCases" placeholder="Enter Number of cases" min='0'>
+                        <input type="number" class="form-control border-bottom" style="border: 0" id="inputWeekCases" placeholder="Enter Number of cases" min='0'>
                     </div>
                 </div>
+
                 <thead class="table-header">
                     <tr>
                         <th scope="col" class="freeze-col">State <i class="fas fa-sort text-secondary"></i></th>
@@ -236,7 +237,7 @@
                             <div id="lineChart_age"></div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <div class="jumbotron">
                             <h2>Infected cases by Male</h2>
                             <h5>in {{ $this_state }} at {{ $this_year }}</h5>
@@ -251,7 +252,7 @@
                             <hr>
                             <div id="female-pieChart"></div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-12">
                         <div class="jumbotron">
                             <h2>Infected cases daily in {{ $this_state }}</h2>
@@ -290,13 +291,13 @@
 <script>
     $(document).ready(function() {
         plotLocalityChart();
-        plotMaleChart();
-        plotFemaleChart();
+        // plotMaleChart();
+        // plotFemaleChart();
         plotHeatmap();
         plotAgeGroupChart();
 
-        $("#inputCases").on('keyup change', function(){
-            var value = $("#inputCases").val();
+        $("#inputWeekCases").on('keyup change', function(){
+            var value = $("#inputWeekCases").val();
             $('.week td').each(function() {
                 if(parseInt($(this).html()) == value){
                     $(this).css('background-color', '#f2c94c')
@@ -306,8 +307,8 @@
             });
         });
 
-        $("#inputStateCases").on('keyup change', function(){
-            var value = $("#inputStateCases").val();
+        $("#inputMonthCases").on('keyup change', function(){
+            var value = $("#inputMonthCases").val();
             $('.month td').each(function() {
                 if(parseInt($(this).html()) == value){
                     $(this).css('background-color', '#f2c94c')
