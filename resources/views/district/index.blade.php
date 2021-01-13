@@ -134,7 +134,7 @@
     <div class="jumbotron">
         <div class="row">
             <div class="col-sm-12">
-                <h4>Age Group Distribution</h4>
+                <h4>Age Group Distribution by District</h4>
                 <p>at {{ $district }} in {{ $year }}</p>
                 <div id="lineChart_age"></div>
                 <small class="text-secondary">*Percentage indicated the rate of infected cases</small>
@@ -146,7 +146,7 @@
     <div class="jumbotron">
         <div class="row">
             <div class="col-sm-12">
-                <h4>Monthly Distribution</h4>
+                <h4>Monthly Distribution by District</h4>
                 <p>at {{ $district }} in {{ $year }}</p>
                 <div id="lineChart_month"></div>
                 <small class="text-secondary">*Percentage indicated the rate of infected cases</small>

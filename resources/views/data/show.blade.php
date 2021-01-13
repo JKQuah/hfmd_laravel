@@ -591,7 +591,7 @@
                         },
                     },
                     stroke: {
-                        width: [3, 0],
+                        width: [0, 3],
                         curve: 'smooth',
                     },
                     

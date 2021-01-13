@@ -48,21 +48,21 @@
                     <small>
                         <span class="text-warning">
                             <i class="fas fa-minus"></i>
-                            No comparison with previous year
+                            No comparison with the previous year
                         </span>
                     </small>
                     <br>
                     <small>
                         <span class="text-danger">
                             <i class="fas fa-arrow-circle-up"></i>
-                            Cases rose compared to previous year
+                            Cases rose compared to the previous year
                         </span>
                     </small>
                     <br>
                     <small>
                         <span class="text-success">
                             <i class="fas fa-arrow-circle-down"></i>
-                            Cases reduced compared to previous year
+                            Cases reduced compared to the previous year
                         </span>
                     </small>
                 </li>
@@ -83,7 +83,7 @@
     </div>
     <br>
     <div class="title vertical-center pt-3">
-        <h2>{{ ucwords(strtolower($state)) }} State</h2>
+        <h2>{{ ucwords(strtolower($state)) }} Districts</h2>
     </div>
     <div class="row">
         <div class="col-md-3">
