@@ -115,7 +115,9 @@
                         type: 'line',
                         height: 350,
                         toolbar: {
-                            show: true
+                            tools: {
+                                download: chart.download
+                            }
                         },
                         zoom: {
                             enabled: true
