@@ -102,6 +102,13 @@
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 data-table"><br>
                     <h2>District Distribution across Month</h2>
                     <h5>at {{ $this_year }}</h5>
+                    <hr>
+                    <div class="form-group row">
+                        <label for="inputStateCases" class="col-sm-2 col-form-label text-right">You may highlight</label>
+                        <div class="col-sm-3">
+                            <input type="number" class="form-control border-bottom" style="border: 0" id="inputStateCases" placeholder="Enter Number of cases" min='0'>
+                        </div>
+                    </div>
                     <table class="table table-sm table-responsive-lg">
                         <thead class="table-header">
                             <tr>
@@ -113,7 +120,7 @@
                         </thead>
                         <tbody>
                             @foreach($monthly_details as $district => $month)
-                            <tr class="table-row">
+                            <tr class="table-row month">
                                 <th class="text-left freeze-col"><a class="state-link" href="{{ route('district.index', ['year'=>$this_year, 'state'=>$this_state, 'district'=>$district] ) }}">{{ $district }}</a></th>
                                 @foreach($month as $value)
                                 <td class="text-center">{{ $value }}</td>
@@ -291,7 +298,17 @@
         $("#inputCases").on('keyup change', function(){
             var value = $("#inputCases").val();
             $('.week td').each(function() {
-                // weekdata += $(this).html(); 
+                if(parseInt($(this).html()) == value){
+                    $(this).css('background-color', '#f2c94c')
+                } else {
+                    $(this).css('background-color', '#fff')
+                }
+            });
+        });
+
+        $("#inputStateCases").on('keyup change', function(){
+            var value = $("#inputStateCases").val();
+            $('.month td').each(function() {
                 if(parseInt($(this).html()) == value){
                     $(this).css('background-color', '#f2c94c')
                 } else {
