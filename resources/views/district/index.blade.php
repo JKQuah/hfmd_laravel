@@ -8,18 +8,19 @@
 
 @section('content')
 <div class="wrapper">
-    <h2 class="text-center">HFMD Cases at <a href="{{ route('data.show', ['year'=>$year, 'state'=>$state]) }}">{{ $state }}</a>, {{ $district }}
+    <h2 class="text-center">Hand Foot Mouth Disease Cases</h2>
+    <h2 class="text-center">at <a href="{{ route('data.show', ['year'=>$year, 'state'=>$state]) }}">{{ ucwords(strtolower($state)) }}</a>, {{ ucwords(strtolower($district)) }}
         <button type="button" class="btn dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-chevron-down"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-right">
             <!-- Dropdown menu links -->
             @foreach($district_list as $this_district)
-            <a class="dropdown-item text-center" href="{{ route('district.index', ['year'=>$year, 'state'=>$state, 'district'=>$this_district['district']]) }}">{{ $this_district['district'] }}</a>
+            <a class="dropdown-item text-center" href="{{ route('district.index', ['year'=>$year, 'state'=>$state, 'district'=>$this_district['district']]) }}">{{ ucwords(strtolower($district)) }}</a>
             @endforeach
         </div>
     </h2>
-    <h5 class="text-center mb-3">in {{ $year }}</h5>
+    <h4 class="text-center mb-3">in {{ $year }}</h4>
     <!-- data total -->
     <div class="row">
         <div class="col-sm-12">
@@ -42,7 +43,7 @@
                                 <p class="card-text text-center">Infected</p>
                             </div>
                             <div class="col-sm-6 col-md-6">
-                                <h2 class="card-title text-center font-weight-bold">{{ $single_district['i_male'] }}</h2>
+                                <h2 class="card-title text-center font-weight-bold"><i style="font-size:30px;color:#2768A4" class="fa">&#xf222;</i> {{ $single_district['i_male'] }}</h2>
                                 @if($single_district['i_male'] == 0)
                                 <p class="card-text text-center">Male (0.0%)</p>
                                 @else
@@ -50,7 +51,7 @@
                                 @endif
                             </div>
                             <div class="col-sm-6 col-md-6">
-                                <h2 class="card-title text-center font-weight-bold">{{ $single_district['i_female'] }}</h2>
+                                <h2 class="card-title text-center font-weight-bold"><i style="font-size:30px;color:#B85887" class="fa">&#xf221;</i> {{ $single_district['i_female'] }}</h2>
                                 @if($single_district['i_female'] == 0)
                                 <p class="card-text text-center">Female (0.0%)</p>
                                 @else
@@ -62,11 +63,11 @@
                     <div class="col-sm-12 col-md-4">
                         <div class="row">
                             <div class="col-sm-12 col-md-12 mb-3">
-                                <h2 class="card-title text-center font-weight-bold">{{ $single_district['deaths'] }}</h2>
-                                <p class="card-text text-center">Death</p>
+                                <h2 class="card-title text-center font-weight-bold text-danger">{{ $single_district['deaths'] }}</h2>
+                                <p class="card-text text-center text-danger">Death</p>
                             </div>
                             <div class="col-sm-6 col-md-6">
-                                <h2 class="card-title text-center font-weight-bold">{{ $single_district['d_male'] }}</h2>
+                                <h2 class="card-title text-center font-weight-bold"><i style="font-size:30px;color:#2768A4" class="fa">&#xf222;</i> {{ $single_district['d_male'] }}</h2>
                                 @if($single_district['d_male'] == 0)
                                 <p class="card-text text-center">Male (0.0%)</p>
                                 @else
@@ -74,7 +75,7 @@
                                 @endif
                             </div>
                             <div class="col-sm-6 col-md-6">
-                                <h2 class="card-title text-center font-weight-bold">{{ $single_district['d_female'] }}</h2>
+                                <h2 class="card-title text-center font-weight-bold"><i style="font-size:30px;color:#B85887" class="fa">&#xf221;</i> {{ $single_district['d_female'] }}</h2>
                                 @if($single_district['d_female'] == 0)
                                 <p class="card-text text-center">Female (0.0%)</p>
                                 @else

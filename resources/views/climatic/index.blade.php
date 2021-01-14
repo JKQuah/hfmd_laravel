@@ -48,12 +48,12 @@
                 <span class="float-right">{{ number_format($mean_rainAmount, 1) }}<small>mm</small> <i class="fas fa-cloud-rain"></i></span>
             </li>
             <li class="list-group-item">
-                <span class="float-left">Average Number of Rain Day</span>
-                <span class="float-right">{{ number_format($mean_rainDay, 1) }} <i class="fas fa-cloud-sun-rain"></i></span>
+                <span class="float-left">Average Number of Rain Day (d)</span>
+                <span class="float-right">{{ number_format($mean_rainDay, 1) }} d <i class="fas fa-cloud-sun-rain"></i></span>
             </li>
             <li class="list-group-item">
-                <span class="float-left">Average Relative Humidity</span>
-                <span class="float-right">{{ number_format($mean_humidity, 1) }}</span>
+                <span class="float-left">Average Relative Humidity (%)</span>
+                <span class="float-right">{{ number_format($mean_humidity, 1) }}% <i class="fas fa-tint"></i></span>
             </li>
         </ul>
     </div>
@@ -130,7 +130,7 @@
                         bar: {
                             horizontal: false,
                             dataLabels: {
-                                position: 'bottom'
+                                position: 'top'
                             }
                         },
                     },
@@ -163,6 +163,14 @@
                     dataLabels: {
                         enabled: true,
                         enabledOnSeries: [0],
+                        offsetY: -10,
+                        style: {
+                            fontSize: '12px',
+                            colors:["#304758"],
+                        },
+                        background: {
+                            enabled: false,
+                        }
                     },
                     responsive: [{
                         breakpoint: 1000,

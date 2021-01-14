@@ -14,7 +14,7 @@
             <div class="card border-0">
                 <img src="{{ asset('img/states/'.$state.'.png') }}" alt="{{ $state }}" title="{{ $state }}" class="w-50 h-25 mx-auto mt-3 border border-dark">
                 <div class="card-body mb-3">
-                    <h6 class="card-title text-center">{{ $state }}</h6>
+                    <h6 class="card-title text-center">{{ ucwords(strtolower($state)) }}</h6>
                 </div>
             </div>
             <ul class="list-group list-group-flush">
@@ -41,7 +41,7 @@
                 </li>
                 @endforeach
                 <li class="list-group-item">
-                    <span class="float-left">Total number of cases</span>
+                    <span class="float-left">Total Cases</span>
                     <span class="float-right">{{ number_format($sum) }}</span>
                 </li>
                 <li class="list-group-item">
@@ -71,7 +71,7 @@
         </div>
         <div class="col-sm-12 col-md-8">
             <div class="card card-body my-5" style="min-height: 407px">
-                <div class="card-title">Annual cases in {{ $state }}</div>
+                <div class="card-title">Annual Cases in {{ ucwords(strtolower($state)) }}</div>
                 <div id="stateOverYear"></div>
                 <div class="spinner" id="overall-spinner">
                     <div class="bounce1"></div>
@@ -89,7 +89,7 @@
         <div class="col-md-3">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 @foreach($districts as $district)
-                <a class="nav-link @if($loop->first) show active @endif" id="v-pills-{{$loop->iteration}}-tab" data-toggle="pill" href="#v-pills-{{$loop->iteration}}" role="tab" aria-controls="v-pills-{{$loop->iteration}}" aria-selected="true">{{$district}}</a>
+                <a class="nav-link @if($loop->first) show active @endif" id="v-pills-{{$loop->iteration}}-tab" data-toggle="pill" href="#v-pills-{{$loop->iteration}}" role="tab" aria-controls="v-pills-{{$loop->iteration}}" aria-selected="true">{{ ucwords(strtolower($district)) }}</a>
                 @endforeach
             </div>
         </div>
@@ -98,11 +98,12 @@
                 @foreach($districts as $district)
                 <div class="tab-pane fade @if($loop->first) show active @endif" id="v-pills-{{$loop->iteration}}" role="tabpanel" aria-labelledby="v-pills-{{$loop->iteration}}-tab">
                     <div class="card card-body mb-3">
-                        <div class="card-title">Annual cases in {{ $district }}</div>
+                        <div class="card-title">Annual Cases in {{ ucwords(strtolower($district)) }}</div>
                         <div id="district_{{ $district }}"></div>
                     </div>
                     <div class="card card-body mb-3">
-                        <div class="card-title">Age Group Distriction in {{ $district }}</div>
+                        <div class="card-title">Age Group Distribution in {{ ucwords(strtolower($district)) }}</div>
+                        <small class="text-right text-secondary">* Click age group to hide</small>
                         <div id="age_{{ $district }}"></div>
                     </div>
                 </div>
@@ -110,35 +111,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- <div class="row">
-        <div class="col-md-4">
-            @foreach($districts as $district)
-            <button class="btn btn-warning mb-3 w-100" type="button" data-toggle="collapse" data-target="#collapse_{{$loop->iteration}}" aria-expanded="false" aria-controls="collapse_{{$loop->iteration}}">
-                {{ $district }}
-            </button>
-            @endforeach
-        </div>
-        <div class="col-md-8">
-            @foreach($districts as $district)
-            <div class="row">
-                <div class="col">
-                    @if($loop->first)
-                    <div class="collapse multi-collapse show" id="collapse_{{$loop->iteration}}">
-                        @else
-                        <div class="collapse multi-collapse" id="collapse_{{$loop->iteration}}">
-                            @endif
-                            <div class="card card-body mb-3">
-                                <div class="card-title">Annual cases in {{ $district }}</div>
-                                <div id="district_{{ $district }}"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>-->
 </div>
 @endsection
 

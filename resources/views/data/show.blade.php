@@ -4,6 +4,26 @@
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="/css/data.css">
+<style>
+.highlight-row {
+    justify-content: flex-end;
+    margin-bottom: 5px;
+}
+.highlight-input {
+    border: 0;
+    border-radius: 0;
+    border-bottom: 3px solid var(--secondary-text-color);
+    margin-left: 23px;
+    width: -webkit-fill-available;
+}
+@media screen and (max-width:768px) {
+    .highlight-row label {
+        text-align: left !important;
+        margin-right: 0 !important;
+        padding-bottom: 0;
+    }
+}
+</style>
 @endsection
 
 @section('content')
@@ -88,9 +108,9 @@
     <div class="mb-4 text-center link-climatic">
         <a href="{{ route('climatic', ['year'=>$this_year, 'state'=>$this_state]) }}"><i class="fas fa-cloud"></i> Go to climatic data</a>
     </div>
-    <!-- data table : Infected cases by locality -->
+    <!-- data table : Infected cases by district -->
     <div class="jumbotron">
-        <h2>Infected cases by locality</h2>
+        <h2>Infected Cases by District</h2>
         <h5>at {{ $this_year }}</h5>
         <hr>
         <div class="wrapper mt-5">
@@ -103,10 +123,10 @@
                     <h2>District Distribution across Month</h2>
                     <h5>at {{ $this_year }}</h5>
                     <hr>
-                    <div class="form-group row">
-                        <label for="inputMonthCases" class="col-sm-2 col-form-label text-right">You may highlight</label>
+                    <div class="form-group row highlight-row">
+                        <label for="inputMonthCases" class="col-sm-3 col-form-label text-right pr-0" style="margin-right: -15px;">You may highlight</label>
                         <div class="col-sm-3">
-                            <input type="number" class="form-control border-bottom" style="border: 0" id="inputMonthCases" placeholder="Enter Number of cases" min='0'>
+                            <input type="number" class="form-control highlight-input" id="inputMonthCases" placeholder="Number of cases" min='0'>
                         </div>
                     </div>
                     <table class="table table-sm table-responsive-lg">
@@ -142,10 +162,10 @@
                 <h2>District Distribution across Week</h2>
                 <h5>at {{ $this_year }}</h5>
                 <hr>
-                <div class="form-group row">
-                    <label for="inputWeekCases" class="col-sm-2 col-form-label text-right">You may highlight</label>
+                <div class="form-group row highlight-row">
+                    <label for="inputWeekCases" class="col-sm-3 col-form-label text-right pr-0" style="margin-right: -15px;">You may highlight</label>
                     <div class="col-sm-3">
-                        <input type="number" class="form-control border-bottom" style="border: 0" id="inputWeekCases" placeholder="Enter Number of cases" min='0'>
+                        <input type="number" class="form-control highlight-input" style="margin-left: 15px;" id="inputWeekCases" placeholder="Number of cases" min='0'>
                     </div>
                 </div>
 
@@ -176,42 +196,42 @@
 
     <!-- categories data according to severity -->
     <div class="jumbotron category-wrapper">
-        <h2>District by infected cases</h2>
+        <h2>District by Cases Severity</h2>
         <h5>at {{ $this_year }}</h5>
         <hr>
         <div class="row">
             @foreach($category_data as $cat_data)
             <div class="col-sm-12 col-md-6 col-xl-3">
                 @if($cat_data['type'] == 'A')
-                <div class="card border-secondary mb-3 border-3 text-center shadow-lg">
+                <div class="card border-success mb-3 border-3 text-center shadow-lg">
                     @elseif($cat_data['type'] == 'B')
                     <div class="card border-info mb-3 border-3 text-center shadow-lg">
                         @elseif($cat_data['type'] == 'C')
-                        <div class="card border-warning mb-3 border-3 text-center shadow-lg">
+                        <div class="card border-secondary mb-3 border-3 text-center shadow-lg">
                             @elseif($cat_data['type'] == 'D')
                             <div class="card border-danger mb-3 border-3 text-center shadow-lg">
                                 @endif
                                 <div class="card-body">
                                     @if($cat_data['type'] == 'A')
-                                    <h1 class="card-title text-secondary">{{ $cat_data['count'] }}</h1>
-                                    <p class="card-text text-secondary font-weight-bolder">{{ $cat_data['count'] < 2 ? 'District' : 'Districts' }}</p>
+                                    <h1 class="card-title text-success">{{ $cat_data['count'] }}</h1>
+                                    <p class="card-text text-success font-weight-bolder">{{ $cat_data['count'] < 2 ? 'District' : 'Districts' }}</p>
                                     @elseif($cat_data['type'] == 'B')
                                     <h1 class="card-title text-info">{{ $cat_data['count'] }}</h1>
                                     <p class="card-text text-info font-weight-bolder">{{ $cat_data['count'] < 2 ? 'District' : 'Districts' }}</p>
                                     @elseif($cat_data['type'] == 'C')
-                                    <h1 class="card-title text-warning">{{ $cat_data['count'] }}</h1>
-                                    <p class="card-text text-warning font-weight-bolder">{{ $cat_data['count'] < 2 ? 'District' : 'Districts' }}</p>
+                                    <h1 class="card-title text-secondary">{{ $cat_data['count'] }}</h1>
+                                    <p class="card-text text-secondary font-weight-bolder">{{ $cat_data['count'] < 2 ? 'District' : 'Districts' }}</p>
                                     @elseif($cat_data['type'] == 'D')
                                     <h1 class="card-title text-danger">{{ $cat_data['count'] }}</h1>
                                     <p class="card-text text-danger font-weight-bolder">{{ $cat_data['count'] < 2 ? 'District' : 'Districts' }}</p>
                                     @endif
                                 </div>
                                 @if($cat_data['type'] == 'A')
-                                <div class="card-header text-secondary border-tb-2 font-weight-bold">Total cases {{ $cat_data['range'] }}</div>
+                                <div class="card-header text-success border-tb-2 font-weight-bold">Total cases {{ $cat_data['range'] }}</div>
                                 @elseif($cat_data['type'] == 'B')
                                 <div class="card-header text-info border-tb-2 font-weight-bold">Total cases {{ $cat_data['range'] }}</div>
                                 @elseif($cat_data['type'] == 'C')
-                                <div class="card-header text-warning border-tb-2 font-weight-bold">Total cases {{ $cat_data['range'] }}</div>
+                                <div class="card-header text-secondary border-tb-2 font-weight-bold">Total cases {{ $cat_data['range'] }}</div>
                                 @elseif($cat_data['type'] == 'D')
                                 <div class="card-header text-danger border-tb-2 font-weight-bold">Total cases {{ $cat_data['range'] }}</div>
                                 @endif
@@ -231,7 +251,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="jumbotron">
-                            <h2>Age Group Distribution in {{ $this_state }}</h2>
+                            <h2>Age Group Distribution in {{ ucwords(strtolower($this_state)) }}</h2>
                             <h5>at {{ $this_year }}</h5>
                             <hr>
                             <div id="lineChart_age"></div>
@@ -255,7 +275,7 @@
                     </div> -->
                     <div class="col-md-12">
                         <div class="jumbotron">
-                            <h2>Infected cases daily in {{ $this_state }}</h2>
+                            <h2>Infected cases daily in {{ ucwords(strtolower($this_state)) }}</h2>
                             <h5>at {{ $this_year }}</h5>
                             <hr>
                             <div id="heatmap"></div>
@@ -279,8 +299,8 @@
             paging: false,
             info: false,
             "language": {
-                search: ' ',
-                searchPlaceholder: 'Search district'
+                search: 'You may filter',
+                searchPlaceholder: 'District by name'
             }
         });
     });
