@@ -34,6 +34,13 @@ class FaqController extends Controller
     }
 
     public function update(Request $request, $id){
+        if(!isset($request->question)){
+            return redirect()->back()->with('error', 'Question must be provided.')->withInput();
+        }
+        
+        if(!isset($request->answer)){
+            return redirect()->back()->with('error', 'Answer must be provided.')->withInput();
+        }
         FAQ::findOrFail($id)
             ->update([
                 'question' => $request->question,

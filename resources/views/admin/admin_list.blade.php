@@ -68,13 +68,13 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                <label for="new-admin-fname">First Name</label>
+                                <label for="new-admin-fname">First Name *</label>
                                 <input type="text" class="form-control" id="new-admin-fname" placeholder="Enter First Name" name="fname" required>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                <label for="new-admin-lname">Last Name</label>
+                                <label for="new-admin-lname">Last Name *</label>
                                 <input type="text" class="form-control" id="new-admin-lname" placeholder="Enter Last Name" name="lname" required>
                             </div>
                         </div>
@@ -83,14 +83,14 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label for="new-admin-email">Email address</label>
+                                <label for="new-admin-email">Email address *</label>
                                 <input type="email" class="form-control" id="new-admin-email" placeholder="Enter email" name="email">
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label for="new-admin-phone">Phone number</label>
-                                <input type="text" class="form-control" id="new-admin-phone" placeholder="Phone number (eg. 0162223460)" name="phone" pattern="^(\+?6?01)[0-46-9]-*[0-9]{7,8}$" oninvalid="setCustomValidity('The phone format should be 016-xxx4567')" required>
+                                <label for="new-admin-phone">Phone number *</label>
+                                <input type="text" class="form-control tel" id="new-admin-phone" placeholder="Phone number (eg. 0162223460)" name="phone"  required>
                             </div>
                         </div>
                     </div>

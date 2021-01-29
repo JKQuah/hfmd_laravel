@@ -127,13 +127,13 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                <label for="new-staff-fname">First Name</label>
+                                <label for="new-staff-fname">First Name *</label>
                                 <input type="text" class="form-control" id="new-staff-fname" placeholder="Enter First Name" name="fname" required>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                <label for="new-staff-lname">Last Name</label>
+                                <label for="new-staff-lname">Last Name *</label>
                                 <input type="text" class="form-control" id="new-staff-lname" placeholder="Enter Last Name" name="lname" required>
                             </div>
                         </div>
@@ -142,13 +142,13 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label for="new-staff-email">Email address</label>
+                                <label for="new-staff-email">Email address *</label>
                                 <input type="email" class="form-control" id="new-staff-email" placeholder="Enter email" name="email">
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label for="new-staff-phone">Phone number</label>
+                                <label for="new-staff-phone">Phone number *</label>
                                 <input type="text" class="form-control tel" id="new-staff-phone" placeholder="Phone number (eg. 0162223460)" name="phone" required>
                             </div>
                         </div>

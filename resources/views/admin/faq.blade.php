@@ -54,7 +54,7 @@
                                                             <div class="form-group row">
                                                                 <label for="faq_question_{{$faq->id}}" class="col-sm-2 col-form-label">Question</label>
                                                                 <div class="col-sm-10">
-                                                                    <input type="text" class="form-control" id="faq_question_{{ $faq->id }}" value="{{ $faq->question }}" name="question">
+                                                                    <input type="text" class="form-control" id="faq_question_{{ $faq->id }}" value="{{ $faq->question }}" name="question" required>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
@@ -105,13 +105,13 @@
                             <div class="form-group row">
                                 <label for="faq_new_question" class="col-sm-2 col-form-label">Question</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="faq_new_question" placeholder="Question" name="question" value="{{ old('question') }}">
+                                    <input type="text" class="form-control" id="faq_new_question" placeholder="Question" name="question" value="{{ old('question') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="faq_new_answer" class="col-sm-2 col-form-label">Answer</label>
                                 <div class="col-sm-10">
-                                    <textarea type="text" class="form-control faq_answer" id="faq_new_answer" placeholder="Answer" name="answer"></textarea>
+                                    <textarea type="text" class="form-control faq_answer" id="faq_new_answer" placeholder="Answer" name="answer" required></textarea>
                                 </div>
                             </div>
                         </div>
